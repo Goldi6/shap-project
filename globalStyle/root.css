@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Secular+One&display=swap');
+:root {
+    /* font */
+    --ff-base: 'Secular One', sans-serif;
+    --ff-p: 'Open Sans', sans-serif;
+    /*messages and headers margins/paddings*/
+    --default-margin: 0.67em;
+    /*borders radius*/
+    --radius: 3px;
+    /*footer and header*/
+    --side-foo-nav-padding: 7rem;
+    --one-and-half-height: 1.5rem;
+    --nav-btn-height: 1.75rem;
+    /*position of the little #secondary-nav arrow => //?used in js for mobile positioning*/
+    --arrow-left: 0;
+}
+
+button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}

@@ -1,0 +1,57 @@
+:root {
+    /* colors */
+    --stripe-height: 3rem;
+    --clr-black: #222;
+    --clr-white: #fff;
+    --clr-secondary: rgb(119, 143, 175);
+    --clr-yellow: rgb(255, 255, 176);
+    /*nav btns*/
+    --nav-btn-width: 8rem;
+    --mobile-nav-btn-width: 7rem;
+}
+
+:root {
+    --green-hue-rotate: hue-rotate(290deg);
+    --clr-background: #eee;
+    --margin: 3rem;
+    --radius-small: 5px;
+    --border-width: 3px;
+    --box-shadow: #a9a9a9;
+}
+
+
+/*contains only admin header*/
+
+#user-ico {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    left: 3rem;
+    padding: 0.5rem 0.35rem 0 0.35rem;
+    background-color: var(--clr-black);
+    border-radius: 0 0 var(--radius) 0;
+    border: 2px solid var(--clr-yellow);
+    border-radius: 50%;
+    box-shadow: #fff 0 0 5px;
+}
+
+.logo span {
+    font-family: var(--ff-p) !important;
+    font-size: 0.6em;
+    color: var(--clr-secondary);
+    box-shadow: var(--clr-yellow) 0 0 5px;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    padding: 0 0.5em;
+}
+
+@media only screen and (max-width:765px) {
+    #user-ico {
+        left: 0;
+        top: 3rem;
+    }
+}
+
+a {
+    color: inherit;
+}

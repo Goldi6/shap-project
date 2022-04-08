@@ -1,0 +1,41 @@
+@media only screen and (max-width:765px) {
+    #nav-btns {
+        height: var(--stripe-height);
+        background-color: var(--clr-black);
+        position: fixed;
+        top: var(--stripe-height);
+        left: 0;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        justify-content: space-around;
+        z-index: 6;
+        background-color: transparent;
+        display: none;
+    }
+    .nav-btn#active {
+        border: none !important;
+        background-color: rgba(119, 143, 175, 0.2);
+    }
+    .nav-btn>a {
+        text-decoration: none;
+    }
+    .nav-btn {
+        width: auto !important;
+        padding: 0 0.5rem;
+    }
+    #user-ico {
+        position: absolute;
+        top: calc(var(--stripe-height)/6);
+        left: 0.5rem;
+    }
+    #user {
+        top: var(--stripe-height);
+        right: 0;
+        justify-content: flex-end;
+    }
+    aside {
+        top: calc(var(--stripe-height)*3.5);
+    }
+}
+
+@media only screen and (max-width:1025px) and (min-width:765px) {}

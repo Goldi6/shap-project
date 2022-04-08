@@ -1,0 +1,164 @@
+:root {
+    --padd-marg-aside: 0.5rem;
+}
+
+aside {
+    position: fixed;
+    left: -16rem;
+    top: 8rem;
+    width: 17.5rem;
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+    padding: var(--padd-marg-aside) 1.5rem;
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    max-height: 30rem;
+}
+
+#slider {
+    cursor: pointer;
+    z-index: -1;
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--clr-black);
+    position: absolute;
+    border-radius: var(--radius);
+    right: -1rem;
+    /* top: 50%;
+    transform: translateY(-50%) rotate(45deg); */
+    transform: rotate(45deg);
+    top: 4.5rem;
+    display: grid;
+    place-items: center;
+}
+
+#slider span {
+    border: 3px solid white;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+aside h3 {
+    font-weight: 300;
+    text-align: center;
+}
+
+aside div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: #fff 1px solid;
+}
+
+aside div:first-of-type {
+    background-color: #333;
+}
+
+aside div:last-of-type {
+    background-color: #444;
+}
+
+aside div:first-of-type button.active {
+    filter: var(--green-hue-rotate);
+}
+
+aside button {
+    padding: 0.2rem 0;
+}
+
+aside button:hover {
+    border: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+aside button.active {
+    border: 1px solid #fff;
+    color: var(--clr-secondary);
+}
+
+aside button.disabled {
+    background-color: var(--clr-black);
+    display: none;
+}
+
+
+/* .disabled:hover {
+    border: none;
+    color: #fff;
+} */
+
+aside form {
+    font-size: small;
+    overflow-y: scroll;
+    background-color: var(--clr-black);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 var(--padd-marg-aside);
+    box-shadow: none;
+    margin: 1rem 0;
+}
+
+form::-webkit-scrollbar {
+    width: 0 !important
+}
+
+aside form span {
+    color: white;
+    padding: var(--padd-marg-aside) 0;
+    margin-left: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    word-break: break-all;
+}
+
+aside form span.active {
+    color: var(--clr-secondary);
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}
+
+aside form span:hover {
+    color: var(--clr-secondary);
+    border-bottom: 1px solid white;
+}
+
+aside form span.active {
+    filter: var(--green-hue-rotate);
+    padding-left: 0.5rem;
+}
+
+aside form span.active::after {
+    right: unset;
+    left: -2rem;
+}
+
+aside form input {
+    margin-right: var(--padd-marg-aside);
+}
+
+aside form p {
+    padding: calc(var(--padd-marg-aside)*2) 0;
+    text-align: center;
+}
+
+aside .error {
+    color: red;
+    text-align: center;
+    font-family: var(--ff-secondary);
+    font-size: small;
+    margin: var(--padd-marg-aside) 0;
+    border: 1px solid orange;
+    display: none;
+}
+
+@media only screen and (max-width:765px) {
+    aside form span.active::after {
+        left: -1.5rem;
+        top: 0.75rem;
+    }
+    aside span#slider.active:after {
+        background-image: none;
+    }
+}

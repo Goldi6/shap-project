@@ -1,0 +1,6 @@
+title {
+    display: block;
+    transform: skew(10deg);
+    text-decoration: underline;
+    padding-top: var(--stripe-height);
+}

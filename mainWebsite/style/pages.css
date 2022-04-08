@@ -1,0 +1,61 @@
+main {
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    min-height: 90vh;
+    border-bottom: 1px solid black;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    scroll-snap-align: start;
+}
+
+h3 {
+    margin-right: 5rem;
+}
+
+h4 {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    background-color: var(--clr-black);
+    color: var(--clr-secondary);
+    padding-right: 1rem;
+}
+
+.message {
+    border-radius: 3rem;
+    border: 2px solid var(--clr-black);
+    min-height: 5rem;
+    display: grid;
+    place-content: center;
+    padding: calc(var(--default-margin)*2);
+    word-wrap: break-word
+}
+
+.message div {
+    display: inline-block;
+    word-wrap: break-word
+}
+
+.message p {
+    text-align: center;
+}
+
+#schedule ul {
+    list-style: disc;
+}
+
+#schedule li {
+    margin-right: 1rem;
+    display: list-item;
+    margin-bottom: 2rem;
+    list-style: disc outside none;
+}
+
+#messages b {
+    text-decoration: underline;
+}
+
+b {
+    font-weight: 800;
+}

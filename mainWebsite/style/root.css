@@ -1,0 +1,12 @@
+:root {
+    /* colors */
+    --stripe-height: 3rem;
+    --clr-black: #111;
+    --clr-white: #fff;
+    --clr-secondary: rgb(127, 255, 176);
+    --clr-yellow: rgb(255, 255, 176);
+    /* icon size */
+    --arrow-ico: 4rem;
+    --nav-btn-width: 5rem;
+    --mobile-nav-btn-width: 4rem;
+}

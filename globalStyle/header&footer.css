@@ -1,0 +1,151 @@
+/* #region foo & head general */
+
+footer,
+#main-nav,
+#secondary-nav {
+    width: 100vw;
+    padding: 0 var(--side-foo-nav-padding) 0 var(--side-foo-nav-padding);
+}
+
+#main-nav,
+footer {
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+}
+
+@media only screen and (max-width:765px) {
+    footer,
+    #main-nav,
+    #secondary-nav {
+        padding: 0 1rem 0 1rem !important;
+    }
+}
+
+
+/* #endregion */
+
+
+/* ////////////// */
+
+
+/* NOTE: header */
+
+nav {
+    /* ///// */
+    position: fixed;
+    top: 0;
+    z-index: 4;
+}
+
+
+/* #region upper nav */
+
+#main-nav {
+    height: var(--stripe-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--clr-secondary);
+}
+
+.logo {
+    font-family: 'Secular One', sans-serif;
+    font-size: large;
+    transform: skew(20deg);
+    font-size: var(--one-and-half-height);
+    font-weight: 100;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.nav-btn {
+    font-size: 1rem;
+    width: var(--nav-btn-width);
+    line-height: var(--nav-btn-height);
+}
+
+.nav-btn:hover {
+    color: var(--clr-secondary);
+}
+
+#nav-btns {
+    line-height: var(--stripe-height);
+    padding-left: 1px;
+    /*to not interfere with left btn shadow*/
+}
+
+.nav-btn#active {
+    border-top: 2px solid var(--clr-white);
+    border-right: 2px solid var(--clr-white);
+    border-radius: var(--radius);
+    box-shadow: 0 0 3px var(--clr-secondary);
+}
+
+@media only screen and (max-width:765px) {
+    .nav-btn {
+        width: var(--mobile-nav-btn-width) !important;
+    }
+}
+
+@media only screen and (max-width:1025px) and (min-width:765px) {
+    .nav-btn {
+        width: var(--mobile-nav-btn-width) !important;
+    }
+}
+
+
+/* #endregion */
+
+
+/* //////////////////////////// */
+
+
+/* /////////////////////// */
+
+
+/* #region //NOTE: footer */
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+    /* background-color: var(--clr-white); */
+    border-radius: 50%;
+    border: 2px solid white;
+    padding: 3px;
+}
+
+.icon-cont {
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.foo-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.foo-absolute {
+    position: absolute;
+    bottom: 0;
+    width: 20rem;
+    right: var(--side-foo-nav-padding);
+}
+
+footer {
+    position: relative;
+    display: grid;
+    place-content: canter;
+}
+
+
+/* NOTE:same as header */
+
+footer {
+    height: calc(var(--stripe-height)*2);
+}
+
+
+/* #endregion */
