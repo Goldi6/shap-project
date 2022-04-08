@@ -8,7 +8,7 @@ session_start();
 $errors =[];
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
   
     
        
