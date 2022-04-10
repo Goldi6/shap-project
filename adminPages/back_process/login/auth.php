@@ -1,9 +1,24 @@
 <?php
 session_start();
-require '../conn.php';
+require_once '../conn.php';
+
+$url = $_POST['url'];
+if(!isset($er)){
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      
+    } 
+
+
+
 if(isset($_POST['username']) && isset($_POST['password'])){
     $userName = test_input($_POST['username']);
     $password = test_input($_POST['password']);
+
 
     if(empty($userName)){
         header("Location: ../../Login.php?error=Username is required *");
@@ -11,7 +26,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         header("Location: ../../Login.php?error=Password is required *");
 
     }else{
-               
+    
         
         $stmt = $conn->prepare("SELECT * FROM users WHERE Username=?");
         $stmt->execute([$userName]);
@@ -44,11 +59,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 
         }
     }
+
 }
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
+}
 ?>

@@ -100,7 +100,11 @@ $pathContent_global = '../../global-content/';
 </head>
 
 <body>
-
+    <?php if(isset($_GET['connerror'])) {?>
+    <div class='alert'>
+        <?=$_GET['connerror']?>
+    </div>
+    <?php } ?>
     <nav id="nav">
 
         <div id="main-nav">
@@ -131,6 +135,7 @@ $pathContent_global = '../../global-content/';
             </div>
         </div>
     </nav>
+
     <script>
     $(() => {
         $('#user-ico').click(() => {
@@ -142,6 +147,8 @@ $pathContent_global = '../../global-content/';
             }
 
         })
+        if ($('.alert').text() != '')
+            alert($('.alert').text());
     })
     </script>
     <?php

@@ -1,5 +1,9 @@
-<?php if(isset($_SESSION['user_id']) && isset($_SESSION['user_name'])){
+<?php session_start();
+ if(isset($_SESSION['user_id']) && isset($_SESSION['user_name'])){
+                    echo $_SESSION['user_id'];
+
     header('Location:pages/CreateMsg.php');
+    exit();
 }?>
 
 <?php $pathStyle_global='../globalStyle/';?>
@@ -38,6 +42,7 @@
 
 
 <body>
+
     <nav id="nav">
 
         <div id="main-nav">
@@ -51,6 +56,8 @@
     </nav>
     <div id='login-container'>
         <form action="back_process/login/auth.php" method='POST' id='login-form'>
+            <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
+
             <p id="legend">כניסת משתמש</p>
             <fieldset>
 
@@ -59,7 +66,15 @@
                     <?=$_GET['error']?>
                 </div>
                 <?php } ?>
-                <span class='alert' id='username-alert' style='font-size:small;display:none;direction:ltr'></span>
+                <?php if(isset($_GET['connerror'])) {?>
+                <div class='alert'>
+                    <?=$_GET['connerror']?>
+                </div>
+                <?php } ?>
+                <?php if(!isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])){
+                    echo 'ok';
+
+}?>
                 <input type="text" name="username" id="username" placeholder='שם משתמש'>
                 <input type="password" name='password' id='password' placeholder='סיסמא'>
                 <input type="submit" name='submit' id='submit' value='login'>
@@ -83,12 +98,12 @@ link.href = url();
 const username = document.getElementById('username');
 const alert = document.getElementById('username-alert');
 const form = document.getElementById('login-form');
-console.log(alert);
+//console.log(alert);
 
 form.addEventListener('submit', function(e) {
     if (/\W/.test(username.value) || username.value.length === 0) {
         e.preventDefault();
-        console.log(alert);
+        // console.log(alert);
         alert.innerHTML = '* Only alphanumeric values and underscore in username';
         alert.style.display = 'inline-block';
     } else {

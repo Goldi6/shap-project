@@ -4,7 +4,7 @@
 <h2>צור הודעה חדשה</h2>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
-
+    <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
     <section>
         <p>סמן לאיזה עמודים להעלות את ההודעה:</p>
         <div class='checkers'>

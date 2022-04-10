@@ -10,8 +10,8 @@ $errors =[];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
   
-    
-       
+        $url = $_POST['url'];
+        echo $url;
       
         $shomrim = isset($_POST['shomrim-msg'])  ?  1:0;
         $ahzaka = isset($_POST['ahzaka-msg']) ? 1:0;
@@ -52,6 +52,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             require 'msg_insert.php';
         }else{
             print_r($errors);
+            $e = '';
+            foreach($errors as $error){
+                
+                $e.= '-'.$error[1];
+            }
+            $e = ltrim($e, $e[0]);
+            echo $e;           
+            // $head = '../../pages/CreateMsg.php?error='.$e;
+            // header ('Location:'.$head);
 
         }
       
