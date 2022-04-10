@@ -6,6 +6,11 @@
 
     <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
     <section>
+        <?php if(isset($_GET['error'])) {?>
+        <div class='alert' style="white-space: pre-line">
+            <?=$_GET['error']?>
+        </div>
+        <?php } ?>
         <p>סמן לאיזה עמודים להעלות את ההודעה:</p>
         <div class='checkers'>
 
@@ -48,6 +53,7 @@
 <hr>
 <main>
     <section>
+
         <div id="load-msg" class="checkers">
             <button class="load-btn">טען הודעות קיימות</button>
             <input type="checkbox" name="shomrim-msg-load" value="shomrim-msg-load" id="shomrim-msg-load">
@@ -382,8 +388,7 @@ $(function() {
         useParagraph: true,
         maxlength: 0,
         callback: undefined,
-        //NOTE:changed
-        useTabForNext: true
+        useTabForNext: false
     });
 
 })

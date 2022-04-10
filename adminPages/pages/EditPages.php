@@ -285,8 +285,7 @@ $(document).ready(function() {
         useParagraph: true,
         maxlength: 0,
         callback: undefined,
-        //NOTE:changed
-        useTabForNext: true
+        useTabForNext: false
     });
     ///////////////////////////////
     //[ ]here

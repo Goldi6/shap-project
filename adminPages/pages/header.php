@@ -31,20 +31,20 @@ $pathContent_global = '../../global-content/';
     <script src="https://kit.fontawesome.com/b2fc89dd52.js" crossorigin="anonymous"></script>
 
     <!-- global styles for both sites -->
-    <link rel="stylesheet" href="<?php echo $pathStyle_global?>header&footer.css">
-    <link rel="stylesheet" href="<?php echo $pathStyle_global?>root.css">
+    <link rel="stylesheet" href="<?= $pathStyle_global?>header&footer.css">
+    <link rel="stylesheet" href="<?= $pathStyle_global?>root.css">
 
     <!-- local styles -->
-    <link rel="stylesheet" href="<?php echo $pathStyle_inner?>root.css">
-    <link rel="stylesheet" href="<?php echo $pathStyle_inner?>style.css">
-    <link rel="stylesheet" href="<?php echo $pathStyle_inner?>aside.css">
-    <link rel="stylesheet" href="<?php echo $pathStyle_inner?>load-msg.css">
-    <link rel="stylesheet" href="<?php echo $pathStyle_inner?>header-query.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>root.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>style.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>aside.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>load-msg.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>header-query.css">
 
 
 
 
-    <script str="<?php echo $pathScript_global?>loadFunc.js"></script>
+    <script str="<?=$pathScript_global?>loadFunc.js"></script>
     <style>
     /*NOTE: user login icon styles*/
     #user {
@@ -101,7 +101,7 @@ $pathContent_global = '../../global-content/';
 
 <body>
     <?php if(isset($_GET['connerror'])) {?>
-    <div class='alert'>
+    <div id='alert'>
         <?=$_GET['connerror']?>
     </div>
     <?php } ?>
@@ -119,7 +119,7 @@ $pathContent_global = '../../global-content/';
 
 
             <button id="user-ico" class='start'> <img style="height:1.25rem;width:1.25rem;"
-                    src="<?php echo $pathStyle_inner?>media/user-tie-solid.svg" alt="user-icon"></button>
+                    src="<?= $pathStyle_inner?>media/user-tie-solid.svg" alt="user-icon"></button>
         </div>
         <!-- //user -->
         <div id="user">
@@ -147,8 +147,8 @@ $pathContent_global = '../../global-content/';
             }
 
         })
-        if ($('.alert').text() != '')
-            alert($('.alert').text());
+        if ($('#alert').text() != '')
+            alert($('#alert').text());
     })
     </script>
     <?php

@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
         $nikayon = isset($_POST['nikayon-msg'])? 1:0;
 
     if( $shomrim===0 && $ahzaka===0 && $nikayon ===0){
-    array_push($errors, ['section_select' , 'please select a section/s to upload the message']);
+    array_push($errors, ['section_select' , '*please select sections']);
     }
 
         $expire =isset($_POST['expire'])? $_POST['expire'] : '' ;
@@ -29,16 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
         if($expire<$dateCreated){
             $expire = '';
         }
+        function spaceCheck($str){
+            $str = strip_tags($str);
+            $str = str_replace("&nbsp;", "", $str);
+            return   !ctype_space($str) && $str !== '' ;
+            
+        }
 
-        $message = isset($_POST['richText']) ?  $_POST['richText'] : array_push($errors,['msg', 'No message was submitted']);
-        //FIXME: check for empty editor
-        // $check = strip_tags($message);
-        // $check = ctype_space($check);
-       
+        $message = isset($_POST['richText']) && spaceCheck($_POST['richText'])==1 ?  $_POST['richText'] : array_push($errors,['msg', '*Empty text field']);
 
-        // if(preg_replace("/\s+/", "", strip_tags($message))==''){
-        //     array_push($errors,['msg', 'No message was submitted']);
-        // }
+
+        echo '<br>msg:'.$message. '<br>';
+      
 
         echo('selected:' . '<br> shomrim = ' . $shomrim . '<br> nikayon = ' .$nikayon. '<br> ahzaka = ' .$ahzaka. '<br>' );
         echo('msg expires on:' .$expire . '<br>');
@@ -55,12 +57,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             $e = '';
             foreach($errors as $error){
                 
-                $e.= '-'.$error[1];
+                $e.= '<br>'.$error[1];
             }
-            $e = ltrim($e, $e[0]);
-            echo $e;           
-            // $head = '../../pages/CreateMsg.php?error='.$e;
-            // header ('Location:'.$head);
+            //$e = ltrim($e, '\n');
+            $e=substr($e , 4 );
+                      
+             $head = '../../pages/CreateMsg.php?error='.$e;
+             header ('Location:'.$head);
 
         }
       

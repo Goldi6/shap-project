@@ -50,7 +50,7 @@ $sql = "CREATE TABLE IF NOT EXISTS Messages (
     nikayon INT(1) NOT NULL,
     ahzaka INT(1) NOT NULL,
     stat VARCHAR(10) NOT NULL,
-    msg TEXT,
+    msg TEXT NOT NULL,
     expire_date DATE,
     created_by VARCHAR(25),
     update_date DATE,
