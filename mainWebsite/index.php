@@ -96,6 +96,8 @@
     <script src="<?php echo $pathScript_inner;?>scroll.js"></script>
     <script src="<?php echo $pathScript_inner;?>article-navigation.js
 "></script>
+    <script src="<?php echo $pathScript_inner;?>load-messages.js"></script>
+
 
 
     <script>

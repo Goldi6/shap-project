@@ -14,6 +14,11 @@ function load($sect) {
     <h3>לוח הודעות</h3>
     <div class="message" id="nikayon-msg">
         <p class="default">כרגע אין הודעות לצוות נקיון.</p>
+        <?php
+        
+        $section='nikayon';
+        require '../backProccess/get_messages.php';
+        ?>
     </div>
 </section>
 

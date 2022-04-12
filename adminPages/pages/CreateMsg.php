@@ -2,6 +2,17 @@
 
 
 <h2>צור הודעה חדשה</h2>
+<?php if(isset($_GET['success'])) {?>
+<div class='success'>
+    <?=$_GET['success']?><span>!</span>
+</div>
+<?php } ?>
+<!-- NOTE: needed to show success msg only once -->
+<?php
+if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
+    echo $_SESSION['messages_success'][$_GET['success']];
+    unset($_SESSION['messages_success'][$_GET['success']]);
+}?>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
     <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
@@ -232,6 +243,24 @@
         </div>
     </section>
 </main>
+<!-- //#region -->
+<!-- NOTE:load msg after error return -->
+<?php if(isset($_SESSION['msg'])) {?>
+<div id='hidden-msg' style='display:none;'>
+    <?=$_SESSION['msg']?>
+</div>
+<?php unset($_SESSION['msg']);} ?>
+
+<!-- NOTE: load selected fields after error return -->
+<?php if(isset($_SESSION['select'])) {?>
+<div id='hidden-select' style='display:none;'>
+    <?=$_SESSION['select']?>
+</div>
+<?php unset($_SESSION['select']);} ?>
+
+<!-- //#endregion -->
+
+
 <?php require $pathContent_global . 'footer.php' ?>
 
 <?php require '../include-inFoo/page-scripts.html'; ?>
@@ -239,6 +268,40 @@
 
 <script>
 $(function() {
+
+    //#region set values after false submit
+    //NOTE:load corrent msg content after error
+    if ($('#hidden-msg')) {
+
+        $('#richText').val($('#hidden-msg').html()).trigger('change');
+    }
+    //NOTE:load corrent selection content after error
+    if ($('#hidden-select')) {
+
+        function checkBool(num) {
+            return num == 1;
+        }
+        let $val = $('#hidden-select').text();
+        const $vala = $val.trim().split('');
+
+        const sho = $vala[0],
+            ahz = $vala[1],
+            nik = $vala[2];
+
+
+
+        $('#shomrim-msg').prop('checked', checkBool(sho));
+        $('#nikayon-msg').prop('checked', checkBool(nik));
+
+        $('#ahzaka-msg').prop('checked', checkBool(ahz));
+
+    }
+    //#endregion
+    //NOTE: fade out msg on success
+    if ($(".success")) {
+
+        $(".success").fadeOut(2000);
+    }
     //NOTE: textarea options
 
     $('#richText').richText({

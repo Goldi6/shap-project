@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
 
     if( $shomrim===0 && $ahzaka===0 && $nikayon ===0){
     array_push($errors, ['section_select' , '*please select sections']);
+    
     }
 
         $expire =isset($_POST['expire'])? $_POST['expire'] : '' ;
@@ -39,20 +40,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
         $message = isset($_POST['richText']) && spaceCheck($_POST['richText'])==1 ?  $_POST['richText'] : array_push($errors,['msg', '*Empty text field']);
 
 
-        echo '<br>msg:'.$message. '<br>';
+        // echo '<br>msg:'.$message. '<br>';
       
 
-        echo('selected:' . '<br> shomrim = ' . $shomrim . '<br> nikayon = ' .$nikayon. '<br> ahzaka = ' .$ahzaka. '<br>' );
-        echo('msg expires on:' .$expire . '<br>');
+        // echo('selected:' . '<br> shomrim = ' . $shomrim . '<br> nikayon = ' .$nikayon. '<br> ahzaka = ' .$ahzaka. '<br>' );
+        // echo('msg expires on:' .$expire . '<br>');
 
-        echo('created on: ' . $dateCreated .'<br>');
+        // echo('created on: ' . $dateCreated .'<br>');
 
-        echo('message: ' . $message );
-        echo('err:<br>' );
+        // echo('message: ' . $message );
+        // echo('err:<br>' );
         if(empty($errors)){
-            echo('no errors!');
+            //echo('no errors!');
             require 'msg_insert.php';
+            $_SESSION['message-success'] = rand(1000,9999);
+            $head = '../../pages/CreateMsg.php?success=ההודעה נשמרה בהצלחה';
+             header ('Location:'.$head);
         }else{
+            //set selected fields again
+
+            if (sizeof($errors) ===1){
+                if($errors[0][0]=='section_select'){
+                    $_SESSION['msg']=$message;
+                }elseif($errors[0][0]='msg'){
+                    $_SESSION['select']=$shomrim.$ahzaka.$nikayon;;
+                }
+            }
+
+            //send the error
             print_r($errors);
             $e = '';
             foreach($errors as $error){
@@ -68,5 +83,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
         }
       
 }else{
-    echo isset($_SESSION['id']);
+    header ('Location: ../../../../Login.php');
 }
