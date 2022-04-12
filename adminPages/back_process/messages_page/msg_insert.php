@@ -15,7 +15,8 @@ $statment->execute([
     $shomrim , $nikayon, $ahzaka, 'active', $message ,$_SESSION['user_name'], $expire , $dateCreated
 ]);
 
-$publisher_id = $conn->lastInsertId();
+//$publisher_id = $conn->lastInsertId();
+
 
 
 ?>

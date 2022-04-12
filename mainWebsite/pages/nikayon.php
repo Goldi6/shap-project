@@ -12,13 +12,15 @@ function load($sect) {
 
 <section id="messages" class="active ">
     <h3>לוח הודעות</h3>
-    <div class="message" id="nikayon-msg">
-        <p class="default">כרגע אין הודעות לצוות נקיון.</p>
-        <?php
+    <div class="message-container">
+        <div class="message" id="nikayon-msg">
+            <p class="default">כרגע אין הודעות לצוות נקיון.</p>
+            <?php
         
-        $section='nikayon';
-        require '../backProccess/get_messages.php';
-        ?>
+            $section='nikayon';
+            require '../backProccess/get_messages.php';
+            ?>
+        </div>
     </div>
 </section>
 

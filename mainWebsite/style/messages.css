@@ -16,6 +16,65 @@ td {
     align-items: stretch;
 }
 
+.message {
+    border-radius: 3rem;
+    /* border: 2px solid var(--clr-black); */
+    min-height: 5rem;
+    max-height: 60vh;
+    display: grid;
+    place-content: center;
+    padding: calc(var(--default-margin)*2);
+    word-wrap: break-word;
+    overflow-y: auto;
+}
+
+.message div {
+    display: inline-block;
+    word-wrap: break-word
+}
+
+.message p {
+    text-align: center;
+}
+
+#messages b {
+    text-decoration: underline;
+}
+
 .default {
-    display: none;
+    display: none
+}
+
+.message-container {
+    overflow: hidden;
+    border-radius: 3rem;
+    border: 2px solid var(--clr-black);
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #bbb;
+}
+
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
 }

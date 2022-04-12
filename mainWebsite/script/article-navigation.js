@@ -22,7 +22,15 @@ $(document).ready(function() {
         const observer = new MutationObserver((mutations) => {
             $("#secondary-nav a").removeClass();
             $(".small").empty();
-
+            ///////////////////////////////////
+            //show 'no message' <p> im messages:
+            //#region
+            console.log();
+            if ($("p.default").siblings().length == 0) {
+                //FIXME: why thats not working???
+                $(".default").show();
+            }
+            //#endregion
             /////////////////
             mutations.forEach((record) => {
                 // console.log(record);
