@@ -1,9 +1,10 @@
 <?php 
 
 
-
+//TODO: errors , session , messages , header
   
 $errors =[];
+$messages =[];
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -131,10 +132,6 @@ file_put_contents($filename,$data);
 ////////////////////////////////
 
 //////////////////////////////
-
-
-
-//TODO: get the numbers for file names
 
 
   

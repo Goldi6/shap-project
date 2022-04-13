@@ -97,6 +97,9 @@
     <script src="<?php echo $pathScript_inner;?>article-navigation.js
 "></script>
 
+    <script src="<?php echo $pathScript_inner;?>updateChecker.js"></script>
+
+
 
 
     <script>
