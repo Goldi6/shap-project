@@ -27,7 +27,6 @@ $(document).ready(function() {
             //#region
             console.log();
             if ($("p.default").siblings().length == 0) {
-                //FIXME: why thats not working???
                 $(".default").show();
             }
             //#endregion

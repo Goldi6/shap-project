@@ -30,7 +30,7 @@ $(function() {
 
     ///////////////////////////////////
 
-    //#region load main pages on click, open secondary nav
+    //#region nav click: load main pages , open secondary nav
     //main pages
     $(".nav-btn").click((e) => {
         //  e.preventDefault();
@@ -64,7 +64,7 @@ $(function() {
 //////////////////////////////////////////////
 ////////////////////////////////////////////
 /////////////////////////////////////////////////////
-
+//#region prepare  and load page contents
 //on doc load get pages from history and load content+check for mobile
 $(document).ready(function() {
     //NOTE: check for mobile nav and remove/switch classes
@@ -97,13 +97,16 @@ $(document).ready(function() {
         }
     });
 });
+//#endregion
 
 //////////////////////////////////////////
 ///////////////////////////////////////////
 
 ////////////////////////////////////////
 //////////////////////////////////////
-//show arrows, open mid-nav , set active page , set mid-nav position, set tooltip arrow position, scroll top //[ ] setupLocationStyles(pageName)
+
+//#region navigation styles
+//show arrows, open mid-nav , set active page , set mid-nav position, set tooltip arrow position, scroll top (pageName)
 function setupLocationStyles(pageName) {
     $(".nav-btn").removeAttr("id");
 
@@ -140,7 +143,7 @@ function setupLocationStyles(pageName) {
 
     $(window).scrollTop(0);
 }
-
+//#endregion
 ///////////////////////////////////
 /////////////////////////////////
 //////////////////////////////

@@ -1,0 +1,1 @@
+//ajax request for new messages and updates

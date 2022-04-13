@@ -71,10 +71,7 @@
                     <?=$_GET['connerror']?>
                 </div>
                 <?php } ?>
-                <?php if(!isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])){
-                    echo 'ok';
 
-}?>
                 <input type="text" name="username" id="username" placeholder='שם משתמש'>
                 <input type="password" name='password' id='password' placeholder='סיסמא'>
                 <input type="submit" name='submit' id='submit' value='login'>

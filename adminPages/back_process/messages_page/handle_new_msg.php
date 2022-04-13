@@ -27,7 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
         $expire = date('Y-m-d', strtotime($expire));
 
         $dateCreated =date("Y-m-d h:i:sa");
-        if($expire<$dateCreated){
+        $dateCompare = date("Y-m-d");
+        if($expire<$dateCompare){
             $expire = '';
         }
         function spaceCheck($str){
@@ -58,6 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
              header ('Location:'.$head);
         }else{
             //set selected fields again
+            if($expire !=''){
+                $_SESSION['expire'] = $expire;
+
+            }
 
             if (sizeof($errors) ===1){
                 if($errors[0][0]=='section_select'){
@@ -65,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
                 }elseif($errors[0][0]='msg'){
                     $_SESSION['select']=$shomrim.$ahzaka.$nikayon;;
                 }
+                
             }
 
             //send the error

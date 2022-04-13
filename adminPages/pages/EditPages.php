@@ -289,6 +289,7 @@ $(document).ready(function() {
     });
     ///////////////////////////////
     //[ ]here
+    //TODO: write save only script
     //////////////////////////////
     $("#save").click((e) => {
         e.preventDefault();
@@ -303,7 +304,7 @@ $(document).ready(function() {
 
 
     //////////////////////////////////////
-    //#region load pages to editor
+    //#region load pages to the editor
 
     $('#load-page-to-editor').click((e) => {
         e.preventDefault();

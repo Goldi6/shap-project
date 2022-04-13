@@ -244,6 +244,7 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
     </section>
 </main>
 <!-- //#region -->
+//FIXME: user shouldnt see those divs in devConsole?
 <!-- NOTE:load msg after error return -->
 <?php if(isset($_SESSION['msg'])) {?>
 <div id='hidden-msg' style='display:none;'>
@@ -258,6 +259,12 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
 </div>
 <?php unset($_SESSION['select']);} ?>
 
+<!-- NOTE: load selected fields after error return -->
+<?php if(isset($_SESSION['expire'])) {?>
+<div id='hidden-expire' style='display:none;'>
+    <?=$_SESSION['expire']?>
+</div>
+<?php unset($_SESSION['expire']);} ?>
 <!-- //#endregion -->
 
 
@@ -270,6 +277,12 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
 $(function() {
 
     //#region set values after false submit
+    //NOTE:load current msg content after error
+    if ($('#hidden-expire')) {
+        let exDate = new Date($('#hidden-expire').text());
+        exDate.setDate(exDate.getDate() + 1);
+        document.getElementById("expire-msg").valueAsDate = exDate;
+    }
     //NOTE:load corrent msg content after error
     if ($('#hidden-msg')) {
 
