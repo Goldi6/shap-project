@@ -30,11 +30,13 @@ if ($conn->connect_error) {
 // sql to create user table
 $sql = "CREATE TABLE IF NOT EXISTS Users (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+last_update INT(5),
+date_of_last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 username VARCHAR(10) NOT NULL UNIQUE,
 password VARCHAR(255) NOT NULL,
 email VARCHAR(30) NOT NULL UNIQUE,
 status INT(1) NOT NULL,
-reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 )";
 
 if ($conn->query($sql) === TRUE) {
@@ -53,9 +55,9 @@ $sql = "CREATE TABLE IF NOT EXISTS Messages (
     msg TEXT NOT NULL,
     expire_date DATE,
     created_by VARCHAR(25),
-    update_date DATE,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     updated_by VARCHAR(25),
-    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
     )";
     
     if ($conn->query($sql) === TRUE) {

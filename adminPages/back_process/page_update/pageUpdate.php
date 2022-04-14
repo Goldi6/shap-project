@@ -1,6 +1,6 @@
 <?php 
 
-
+session_start();
 //TODO: errors , session , messages , header
   
 $errors =[];
@@ -109,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //////////////////////////////////////////////
   $f = fopen($filename, 'a');
   if (!$f) {
+    array_push($errors,['file', 'Error opening the file ' . $filename]);
       die('Error opening the file ' . $filename);
   }
 
@@ -127,6 +128,9 @@ file_put_contents($filename,$data);
   }
 
 
+//#region update user table for main page updating and refresh
+require_once '../conn.php';  
+require_once '../update_mysql.php';
 
 
 ////////////////////////////////

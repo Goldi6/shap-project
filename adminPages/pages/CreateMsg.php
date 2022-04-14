@@ -95,13 +95,13 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
 
 
                 <div>
-                    <span class='in-messages'>
+                    <span class='in-messages' data-setType='shomrim'>
                         שומרים
                     </span>
-                    <span class='in-messages'>
+                    <span class='in-messages' data-setType='ahzaka'>
                         אחזקה
                     </span>
-                    <span class='in-messages'>
+                    <span class='in-messages' data-setType='nikayon'>
                         ניקיון
                     </span>
                 </div>
@@ -119,6 +119,14 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
             </div>
             <div class="box-footer">
                 <button>delete</button>
+                <button class='exp-date'>
+
+                    exp:
+                    <span>
+                        11.11.1999
+                    </span>
+                </button>
+                <button>freeze</button>
 
             </div>
         </div>
@@ -156,6 +164,14 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
             </div>
             <div class="box-footer">
                 <button>delete</button>
+                <button class='exp-date'>
+
+                    exp:
+                    <span>
+                        11.11.1999
+                    </span>
+                </button>
+                <button>freeze</button>
 
             </div>
         </div>
@@ -199,6 +215,14 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
             </div>
             <div class="box-footer">
                 <button>delete</button>
+                <button class='exp-date'>
+
+                    exp:
+                    <span>
+                        11.11.1999
+                    </span>
+                </button>
+                <button>freeze</button>
 
             </div>
         </div>
@@ -238,6 +262,14 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
             </div>
             <div class="box-footer">
                 <button>delete</button>
+                <button class='exp-date'>
+
+                    exp:
+                    <span>
+                        11.11.1999
+                    </span>
+                </button>
+                <button>freeze</button>
 
             </div>
         </div>

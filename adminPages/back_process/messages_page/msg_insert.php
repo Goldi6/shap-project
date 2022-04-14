@@ -4,8 +4,6 @@ require_once '../conn.php';
 
 
 
-
-
 $sql = 'INSERT INTO messages(shomrim, nikayon, ahzaka, stat, msg,created_by, expire_date, create_date)
  VALUES(?,?,?,?,?,?,?,?)';
 
@@ -17,6 +15,5 @@ $statment->execute([
 
 //$publisher_id = $conn->lastInsertId();
 
-
-
+include_once '../update_mysql.php';
 ?>

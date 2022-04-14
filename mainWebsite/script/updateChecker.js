@@ -13,9 +13,17 @@ $(() => {
             type: "POST",
             data: { url: page_url },
             success: function(result) {
-                console.log(result);
+                console.log(result + " " + new Date());
+                if (localStorage.getItem("update") === null) {
+                    localStorage.setItem("update", result);
+                } else {
+                    console.log("result" + localStorage.getItem("update"));
 
-                if (result == 1) location.reload();
+                    if (result != localStorage.getItem("update")) {
+                        localStorage.setItem("update", result);
+                        location.reload();
+                    }
+                }
             },
             error: function() {
                 console.log("error");
