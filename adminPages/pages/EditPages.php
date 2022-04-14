@@ -308,6 +308,11 @@ $(document).ready(function() {
 
     $('#load-page-to-editor').click((e) => {
         e.preventDefault();
+
+        //switch to replace content instead od add at the and [radio]
+        $('#add-New').prop("checked", true);
+
+
         let page = $('input[name=page-select]:checked').val();
         page = page.split('-'),
             page = page[0];

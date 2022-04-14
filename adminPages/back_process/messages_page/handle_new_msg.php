@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
                 if($errors[0][0]=='section_select'){
                     $_SESSION['msg']=$message;
                 }elseif($errors[0][0]='msg'){
-                    $_SESSION['select']=$shomrim.$ahzaka.$nikayon;;
+                    $_SESSION['select']=$shomrim.$ahzaka.$nikayon;
                 }
                 
             }

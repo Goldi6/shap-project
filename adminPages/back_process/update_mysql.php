@@ -1,5 +1,7 @@
 <?php
 
+//COMPLETE set new id on admin update
+
 $lastUpdate = rand(10000,99999);
 
 
