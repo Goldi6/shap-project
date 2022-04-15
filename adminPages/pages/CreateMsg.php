@@ -3,7 +3,7 @@
 
 <h2>צור הודעה חדשה</h2>
 <?php if(isset($_GET['success'])) {?>
-<div class='success'>
+<div class='success msg-to-user'>
     <?=$_GET['success']?><span>!</span>
 </div>
 <?php } ?>

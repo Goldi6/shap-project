@@ -162,6 +162,10 @@ span.active::after {
     section div {
         gap: 0.5rem;
     }
+    /* FIXME: not applying */
+    #richText {
+        margin-top: 2rem !important;
+    }
 }
 
 
@@ -282,14 +286,16 @@ hr {
 .............................................. */
 
 .relative {
-    position: relative;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+.relative input {
+    border-radius: 3px;
 }
 
 #save {
     height: 1.5rem;
-    position: absolute;
     right: 2rem;
     display: flex;
     align-items: center;

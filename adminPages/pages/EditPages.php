@@ -61,11 +61,11 @@
         <button id="load-page-to-editor" class="load-btn">טען עמוד</button>
         <div id="radio-addHow">
             <div>
-                <input type="radio" name="create_Or_add" value="add-toEnd" id="add-toEnd" checked="checked">
+                <input type="radio" name="create_or_add" value="add-toEnd" id="add-toEnd" checked="checked">
                 <legend for="add-toEnd">הוסף תוכן זה בסוף האזור הנבחר</legend>
             </div>
             <div>
-                <input type="radio" name="create_Or_add" value="add-New" id="add-New">
+                <input type="radio" name="create_or_add" value="add-New" id="add-New">
                 <legend for="add-New">צור תוכן חדש</legend>
             </div>
         </div>
@@ -78,7 +78,11 @@
 
     </section>
 
-    <div class="relative"><button id="save"><img src="../style/media/box-archive-solid.svg" alt="">שמור</button>
+    <div class="relative"><button id="save">
+            <img src="../style/media/box-archive-solid.svg" alt="save"> שמור לאחר כך:</button>
+        <input type="text" name='save_name' id='save_name' placeholder='שם'>
+        <div class='msg-to-user' id='save_user_msg' style="display:none;">
+        </div>
     </div>
 
     <textarea name="richText" id="richText"></textarea>
@@ -115,7 +119,7 @@
     <span class='error'>
         * בחר קובץ
     </span>
-    <button class="load-btn" id='select-backup-load-btn'>load</button>
+    <button class="load-btn" id='select-backup-load-btn'>טען</button>
 </aside>
 <?php require $pathContent_global . 'footer.php' ?>
 
@@ -289,16 +293,63 @@ $(document).ready(function() {
     });
     ///////////////////////////////
     //[ ]here
-    //TODO: write save only script
+
+
+    function showSaveMsg(type, cont) {
+        let $msgContainer = $('#save_user_msg');
+
+        $msgContainer.text(type).append("<span>" + cont + "</span>");
+        $msgContainer.show();
+
+        if (type == 'ERROR: ') {
+            $msgContainer.css('color', 'red');
+        } else {
+            $msgContainer.css('color', 'white');
+
+            setTimeout(() => {
+                $msgContainer.fadeOut('slow');
+
+            }, 5000);
+        }
+
+
+    }
     //////////////////////////////
     $("#save").click((e) => {
         e.preventDefault();
+        let fileName = $('#save_name').val();
+        let section = $('input[name=section-select]:checked').val();
+        let page = $('input[name=page-select]:checked').val();
+        let textData = $('#richText').val();
 
-        $.getScript("../script/save.js", function(data, textStatus, jqxhr) {
-            console.log(data); // Data returned
-            console.log(textStatus); // Success
-            console.log(jqxhr.status); // 200
-            console.log("Load was performed.");
+
+        let $msgContainer = $('#save_user_msg');
+
+        //console.log(textData);
+        $.ajax({
+            url: "../back_process/page_update/save.php",
+            type: "POST",
+            data: {
+
+                fileName: fileName,
+                page: page,
+                section: section,
+                textData: textData
+            },
+            success: function(result) {
+                console.log(result);
+                if (result.includes('backup/') && result.includes('.html')) {
+                    console.log('good');
+                    showSaveMsg('נשמר כ: ', result);
+                } else {
+                    result = JSON.parse(result);
+                    console.log(result);
+                    showSaveMsg('ERROR: ', result[1]);
+                }
+            },
+            error: function() {
+                showSaveMsg('ERROR: ', 'could not make request');
+            },
         });
     });
 
