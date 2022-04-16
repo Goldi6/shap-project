@@ -5,7 +5,7 @@ require_once '../conn.php';
 $url = $_POST['url'];
 if(!isset($er)){
 
-    function test_input($data) {
+    function strip($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
@@ -16,8 +16,8 @@ if(!isset($er)){
 
 
 if(isset($_POST['username']) && isset($_POST['password'])){
-    $userName = test_input($_POST['username']);
-    $password = test_input($_POST['password']);
+    $userName = strip($_POST['username']);
+    $password = strip($_POST['password']);
 
 
     if(empty($userName)){
@@ -47,6 +47,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                     $_SESSION['user_id'] =$user_id;
                     $_SESSION['user_name'] = $user_name;
                     $_SESSION['user_email'] = $user_email;
+                    $_SESSION['user-status'] = $user_status;
                     header("Location: ../../pages/CreateMsg.php");
 
                 }
