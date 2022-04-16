@@ -110,7 +110,7 @@ nav {
     height: 2rem;
     /* background-color: var(--clr-white); */
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid orange;
     padding: 3px;
 }
 
@@ -119,6 +119,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid yellow;
 }
 
 .foo-flex {

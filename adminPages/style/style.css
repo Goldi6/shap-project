@@ -33,10 +33,14 @@ button {
     font-family: var(--ff-base);
 }
 
-h2 {
+h2,
+h3 {
     text-align: center;
-    margin: var(--margin) 0 var(--margin) 0;
     text-shadow: var(--box-shadow) 0 5px 5px;
+}
+
+h2 {
+    margin: var(--margin) 0 var(--margin) 0;
 }
 
 form p {

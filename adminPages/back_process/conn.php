@@ -9,8 +9,9 @@ try{
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }catch(PDOException $e){
  $er= 'Connection failed : '.$e->getMessage();
-    $msg = 'Can\'t connect to the server, please again try later';
-    $loc = $url.'?connerror=' . $msg;
+    $msg = 'Can\'t connect to the server, please try again later';
+    //FIXME
+    $loc = $domain .$url.'?connerror=' . $msg;
  
      header('Location:'.$loc);
 }

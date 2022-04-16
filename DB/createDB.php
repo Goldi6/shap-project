@@ -57,7 +57,8 @@ $sql = "CREATE TABLE IF NOT EXISTS Messages (
     created_by VARCHAR(25),
     update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     updated_by VARCHAR(25),
-    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    random_id INT(6) NOT NULL
     )";
     
     if ($conn->query($sql) === TRUE) {

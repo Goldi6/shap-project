@@ -42,6 +42,7 @@
 
 <form action="../back_process/page_update/pageUpdate.php" method="POST" id="edit-form">
 
+    <input type="text" style='display:none' name='url' id='url' value='<?=$_SERVER['REQUEST_URI']?>'>
 
     <section>
         <?php if(isset($_GET['error'])) {?>

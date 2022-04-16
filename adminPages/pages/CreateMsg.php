@@ -15,7 +15,7 @@
     } ?>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
-    <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
+    <input type="text" style='display:none' name='url' id='url' value='<?=$_SERVER['REQUEST_URI']?>'>
     <section>
         <?php if(isset($_GET['error'])) {?>
         <div class='alert' style="white-space: pre-line">
@@ -64,18 +64,18 @@
 <hr>
 <main>
     <section>
-
+        <h3>טען הודעות</h3>
         <div id="load-msg" class="checkers">
-            <button class="load-btn">טען הודעות קיימות</button>
-            <input type="checkbox" name="shomrim-msg-load" value="shomrim-msg-load" id="shomrim-msg-load">
+            <!-- <button class="load-btn">טען הודעות קיימות</button> -->
+            <input type="checkbox" name="shomrim-msg-load" value="1" id="shomrim-msg-load">
             <span class="radio-btn radio-btn-sub">
                 <legend for="shomrim-msg">שומרים</legend>
             </span>
-            <input type="checkbox" name="nikayon-msg-load" value="nikayon-msg-load" id="nikayon-msg-load">
+            <input type="checkbox" name="nikayon-msg-load" value="1" id="nikayon-msg-load">
             <span class="radio-btn radio-btn-sub">
                 <legend for="nikayon-msg">נקיון</legend>
             </span>
-            <input type="checkbox" name="ahzaka-msg-load" value="ahzaka-msg-load" id='ahzaka-msg-load'>
+            <input type="checkbox" name="ahzaka-msg-load" value="1" id='ahzaka-msg-load'>
             <span class="radio-btn radio-btn-sub">
                 <legend for="ahzaka-msg">אחזקה</legend>
             </span>
@@ -84,23 +84,23 @@
 
     <section id="active-messages">
         <div>
-            <div class="box-header">
-                <form action="" id=''>
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
+            <div class="box-header pad">
 
-                    <button type="submit"><img src="../style/media/arrow-up-from-bracket-solid.svg" alt=""></button>
-                </form>
+
+                <button class='save-change-btn' type="submit"></button>
+
 
 
                 <div>
+                    <input type="checkbox" name="" id="">
                     <span class='in-messages' data-setType='shomrim'>
                         שומרים
                     </span>
+                    <input type="checkbox" name="" id="">
                     <span class='in-messages' data-setType='ahzaka'>
                         אחזקה
                     </span>
+                    <input type="checkbox" name="" id="">
                     <span class='in-messages' data-setType='nikayon'>
                         ניקיון
                     </span>
@@ -109,6 +109,7 @@
 
             </div>
             <div class="message-cont">
+                <h4>examle</h4>
                 <p>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et repudiandae laudantium, velit, debitis
                     totam
@@ -129,150 +130,18 @@
                 <button>freeze</button>
 
             </div>
-        </div>
-        <div>
-            <div class="box-header">
-                <form action="" id=''>
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-
-                    <button type="submit"><img src="../style/media/arrow-up-from-bracket-solid.svg" alt=""></button>
-                </form>
-
-
-                <div>
-                    <span class='in-messages'>
-                        שומרים
-                    </span>
-                    <span class='in-messages'>
-                        אחזקה
-                    </span>
-                    <span class='in-messages'>
-                        ניקיון
-                    </span>
-                </div>
-
-
-            </div>
-            <div class="message-cont">
+            <div class="status">
                 <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et repudiandae laudantium, velit, debitis
-
-
+                    Status:
+                </p>
+                <p>active</p>
+                <p>
+                    New exp:
+                    <input type="date" name="new-msg-date" id="">
                 </p>
             </div>
-            <div class="box-footer">
-                <button>delete</button>
-                <button class='exp-date'>
-
-                    exp:
-                    <span>
-                        11.11.1999
-                    </span>
-                </button>
-                <button>freeze</button>
-
-            </div>
         </div>
 
-        </div>
-        <div>
-            <div class="box-header">
-                <form action="" id=''>
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-
-                    <button type="submit"><img src="../style/media/arrow-up-from-bracket-solid.svg" alt=""></button>
-                </form>
-
-
-                <div>
-                    <span class='in-messages'>
-                        שומרים
-                    </span>
-                    <span class='in-messages'>
-                        אחזקה
-                    </span>
-                    <span class='in-messages'>
-                        ניקיון
-                    </span>
-                </div>
-
-
-            </div>
-            <div class="message-cont">
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et repudiandae laudantium, velit, debitis
-                    totam
-                </p>
-                <p>
-                    distinctio quia ab nam consequuntur similique repellat nulla modi repellendus iure officia veniam
-                    tempora
-                    aliquid quaerat?
-                </p>
-            </div>
-            <div class="box-footer">
-                <button>delete</button>
-                <button class='exp-date'>
-
-                    exp:
-                    <span>
-                        11.11.1999
-                    </span>
-                </button>
-                <button>freeze</button>
-
-            </div>
-        </div>
-        <div>
-            <div class="box-header">
-                <form action="" id=''>
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-                    <input type="checkbox" name="" id="">
-
-                    <button type="submit"><img src="../style/media/arrow-up-from-bracket-solid.svg" alt=""></button>
-                </form>
-
-
-                <div>
-                    <span class='in-messages'>
-                        שומרים
-                    </span>
-                    <span class='in-messages'>
-                        אחזקה
-                    </span>
-                    <span class='in-messages'>
-                        ניקיון
-                    </span>
-                </div>
-
-
-            </div>
-            <div class="message-cont">
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et repudiandae laudantium, velit, debitis
-                    totam
-                    distinctio quia ab nam consequuntur similique repellat nulla modi repellendus iure officia veniam
-                    tempora
-                    aliquid quaerat?
-                </p>
-            </div>
-            <div class="box-footer">
-                <button>delete</button>
-                <button class='exp-date'>
-
-                    exp:
-                    <span>
-                        11.11.1999
-                    </span>
-                </button>
-                <button>freeze</button>
-
-            </div>
-        </div>
     </section>
 </main>
 <?php include 'include_updates/msg_setters.php';?>
@@ -283,6 +152,8 @@
 <?php require '../include-inFoo/page-scripts.html'; ?>
 <script src="<?php echo $pathScript_inner?>min-date.js"></script>
 <script src="<?php echo $pathScript_inner?>MSG_handle_selected_values.js"></script>
+<script src="<?php echo $pathScript_inner?>load-msges-ajax.js"></script>
+
 
 
 <script>

@@ -5,17 +5,26 @@
         }
         
         #active-messages>div {
-            padding: 1rem;
+            padding-top: 1rem;
             display: grid;
-            grid-template-rows: 3rem auto 2rem;
-            align-items: center;
+            grid-template-rows: 2rem auto 2rem 3.5rem;
+            align-items: stretch;
             justify-content: stretch;
+        }
+        
+        .pad {
+            padding-right: 1rem;
+            padding-left: 1rem;
         }
         
         .message-cont {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            background-color: #eee;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding: 0.5rem;
         }
         
         div.box-header {
@@ -30,9 +39,15 @@
         div.box-header>div {
             box-shadow: none;
         }
-        
-        .box-header img {
+        /* .box-header img {
             height: 1rem;
+        } */
+        
+        button.save-change-btn {
+            background: url('media/save-solid.svg') no-repeat center;
+            background-size: 1.5rem 1.5rem;
+            height: 1.5rem;
+            width: 1.5rem;
         }
         
         div.box-footer {
@@ -111,7 +126,7 @@
             box-shadow: none;
         }
         
-        .box-header form>input {
+        .box-header input {
             display: none;
         }
         
@@ -144,4 +159,32 @@
             main {
                 width: 70vw;
             }
+        }
+        
+        .status {
+            background-color: #333;
+            color: #fff;
+            direction: ltr;
+            box-shadow: 0 0 3px #333;
+        }
+        
+        .status input {
+            border: 1px solid #fff;
+            padding: 0;
+            font-size: small;
+            margin: 5px;
+        }
+        
+        .status p {
+            font-size: small;
+        }
+        
+        .status p:nth-child(3) {
+            border-left: 1px solid yellow;
+            padding-left: 1rem;
+        }
+        
+        .status p:nth-child(2) {
+            font-weight: bold;
+            font-size: medium;
         }

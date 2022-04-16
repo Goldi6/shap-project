@@ -1,9 +1,8 @@
 <?php 
 
 session_start();
-//TODO: errors , session , messages , header
 
-
+$url = $_POST['url'];
 
 //#region session and header funcs
 function setDataSession(){
