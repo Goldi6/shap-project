@@ -166,6 +166,9 @@ span.active::after {
     #richText {
         margin-top: 2rem !important;
     }
+    form#edit-form {
+        width: 80vw;
+    }
 }
 
 

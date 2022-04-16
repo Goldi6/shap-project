@@ -161,4 +161,7 @@ aside .error {
     aside span#slider.active:after {
         background-image: none;
     }
+    aside {
+        top: 6rem;
+    }
 }

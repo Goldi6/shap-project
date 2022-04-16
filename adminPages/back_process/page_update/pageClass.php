@@ -172,12 +172,12 @@ public function testEmptyVals(){
               fputs($f,$data);
           
               fclose($f);
-              return 'successfully added to the end!';
+              return 'successfully added to the end ';
             }else if($add_create ==$this->addNew){
           
               file_put_contents($filename,$data);
               fclose($f);
-              return 'successfully created new file!';
+              return 'successfully created new file ';
           
             }
         }else{

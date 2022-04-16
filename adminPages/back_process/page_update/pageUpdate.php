@@ -5,7 +5,7 @@ session_start();
 
 
 
-
+//#region session and header funcs
 function setDataSession(){
     function spaceCheck2($str){
         $str = strip_tags($str);
@@ -24,28 +24,43 @@ function setDataSession(){
     if(isset($_POST['create_or_add'])){
              
 
-        $data =  $_POST['richText'];
+        $data =  $_POST['create_or_add'];
        $_SESSION['create_add'] = $data;
     
     }
-    if(isset($_POST['backup_content'])){
+    if(isset($_POST['backup-content'])){
              
        $_SESSION['backup_content'] = 1;
-       if(isset($_POST['backup_name'])){
+       if(isset($_POST['backup-name'])){
              
-        $_SESSION['backup_name'] = $_POST['backup_name'];
+        $_SESSION['backup_name'] = $_POST['backup-name'];
      
         }
+    }
+    if(isset($_POST['section-select'])){
+             
+
+        $data =  $_POST['section-select'];
+       $_SESSION['section'] = $data;
+    
+    }
+    if(isset($_POST['page-select'])){
+             
+
+        $data =  $_POST['page-select'];
+       $_SESSION['page'] = $data;
+    
     }
 }
 function msgHeader($arr){
     setDataSession();
     $errMsg = $arr[0].'='.$arr[1];
 
-    $head = '../../pages/editPages.php?'.$errMsg;
+    $head = '../../pages/EditPages.php?'.$errMsg;
     header ("Location:" . $head);
 
 }
+//endregion
   
 //error(block) , selectError(alert),fileError(alert),
 
@@ -80,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if($page_update->testForEmptyData() ==1){
 
-        msgHeader(['error','*Nothing was sent, please add some text to Editor']);
+        msgHeader(['error','*Nothing was sent, please add some text to the Editor']);
      
     };
   
@@ -118,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once '../conn.php';  
         require_once '../update_mysql.php';
         //#endregion
-        
+        $_SESSION['message_success'] = rand(1000,9999);
         msgHeader(['success', $updateFile.$successBackup]);
         //echo $updateFile;
     }

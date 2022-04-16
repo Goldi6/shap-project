@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
         if(empty($errors)){
             //echo('no errors!');
             require 'msg_insert.php';
-            $_SESSION['message-success'] = rand(1000,9999);
+            $_SESSION['message_success'] = rand(1000,9999);
             $head = '../../pages/CreateMsg.php?success=ההודעה נשמרה בהצלחה';
              header ('Location:'.$head);
         }else{

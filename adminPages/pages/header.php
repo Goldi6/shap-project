@@ -40,6 +40,8 @@ $pathContent_global = '../../global-content/';
     <link rel="stylesheet" href="<?= $pathStyle_inner?>aside.css">
     <link rel="stylesheet" href="<?= $pathStyle_inner?>load-msg.css">
     <link rel="stylesheet" href="<?= $pathStyle_inner?>header-query.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>alert-errors.css">
+
 
 
 

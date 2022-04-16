@@ -65,7 +65,7 @@ function styleBtns(select) {
 }
 //////////////////////////////
 //checkbox in main form -creating backup file
-$("#backup-check").click(() => {
+$("#backup-check").change(() => {
     if ($("#backup-check").is(":checked")) {
         $("#create-backup-div>input[type='text']").addClass("active");
         $("#create-backup-div>input[type='text']").removeAttr("disabled");

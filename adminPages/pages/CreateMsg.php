@@ -2,17 +2,17 @@
 
 
 <h2>צור הודעה חדשה</h2>
-<?php if(isset($_GET['success'])) {?>
+<?php if(isset($_GET['success']) && isset($_SESSION['message_success'])) {?>
+
 <div class='success msg-to-user'>
-    <?=$_GET['success']?><span>!</span>
+    <?=$_GET['success'];?>
+    <span>!</span>
 </div>
-<?php } ?>
-<!-- NOTE: needed to show success msg only once -->
-<?php
-if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
-    echo $_SESSION['messages_success'][$_GET['success']];
-    unset($_SESSION['messages_success'][$_GET['success']]);
-}?>
+<?php 
+    
+    unset($_SESSION['message_success']); 
+    
+    } ?>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
     <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
@@ -275,78 +275,21 @@ if (isset($_GET['success'], $_SESSION['messages_success'][$_GET['success']])) {
         </div>
     </section>
 </main>
-<!-- //#region -->
-//FIXME: user shouldnt see those divs in devConsole?
-<!-- NOTE:load msg after error return -->
-<?php if(isset($_SESSION['msg'])) {?>
-<div id='hidden-msg' style='display:none;'>
-    <?=$_SESSION['msg']?>
-</div>
-<?php unset($_SESSION['msg']);} ?>
-
-<!-- NOTE: load selected fields after error return -->
-<?php if(isset($_SESSION['select'])) {?>
-<div id='hidden-select' style='display:none;'>
-    <?=$_SESSION['select']?>
-</div>
-<?php unset($_SESSION['select']);} ?>
-
-<!-- NOTE: load selected fields after error return -->
-<?php if(isset($_SESSION['expire'])) {?>
-<div id='hidden-expire' style='display:none;'>
-    <?=$_SESSION['expire']?>
-</div>
-<?php unset($_SESSION['expire']);} ?>
-<!-- //#endregion -->
+<?php include 'include_updates/msg_setters.php';?>
 
 
 <?php require $pathContent_global . 'footer.php' ?>
 
 <?php require '../include-inFoo/page-scripts.html'; ?>
-<script src="../script/min-date.js"></script>
+<script src="<?php echo $pathScript_inner?>min-date.js"></script>
+<script src="<?php echo $pathScript_inner?>MSG_handle_selected_values.js"></script>
+
 
 <script>
 $(function() {
 
-    //#region set values after false submit
-    //NOTE:load current msg content after error
-    if ($('#hidden-expire')) {
-        let exDate = new Date($('#hidden-expire').text());
-        exDate.setDate(exDate.getDate() + 1);
-        document.getElementById("expire-msg").valueAsDate = exDate;
-    }
-    //NOTE:load corrent msg content after error
-    if ($('#hidden-msg')) {
-
-        $('#richText').val($('#hidden-msg').html()).trigger('change');
-    }
-    //NOTE:load corrent selection content after error
-    if ($('#hidden-select')) {
-
-        function checkBool(num) {
-            return num == 1;
-        }
-        let $val = $('#hidden-select').text();
-        const $vala = $val.trim().split('');
-
-        const sho = $vala[0],
-            ahz = $vala[1],
-            nik = $vala[2];
 
 
-
-        $('#shomrim-msg').prop('checked', checkBool(sho));
-        $('#nikayon-msg').prop('checked', checkBool(nik));
-
-        $('#ahzaka-msg').prop('checked', checkBool(ahz));
-
-    }
-    //#endregion
-    //NOTE: fade out msg on success
-    if ($(".success")) {
-
-        $(".success").fadeOut(2000);
-    }
     //NOTE: textarea options
 
     $('#richText').richText({

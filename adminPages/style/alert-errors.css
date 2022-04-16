@@ -1,0 +1,44 @@
+body {
+    position: relative;
+}
+
+.alert-container {
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: red;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    z-index: 45;
+}
+
+.alert-container .alert {
+    border: 1px solid white;
+    width: 22rem;
+    max-width: 90vw;
+    height: 12rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    align-items: center;
+    flex-direction: column;
+    background-color: #222;
+    box-shadow: inset 0 0 10px white;
+}
+
+.alert-container .alert p {
+    font-size: 1.2rem;
+}
+
+.alert-container .alert button {
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border: 2px solid white;
+    padding: 0.5rem;
+    width: 30%;
+    box-shadow: inset 0 0 1px white;
+}

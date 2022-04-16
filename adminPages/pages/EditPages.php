@@ -1,11 +1,54 @@
 <?php require 'header.php'?>
 
 
+<!-- //set session end -->
+<?php if( isset($_GET['fileError'])) {?>
+<div class='alert-container'>
+    <div class='alert'>
+        <p>
+            <?=$_GET['fileError']?>
+        </p>
+        <button>ok</button>
+    </div>
+</div>
+<?php } ?>
+
+<?php if(isset($_GET['selectError'])) {?>
+<div class='alert-container'>
+    <div class='alert'>
+        <p>
+            <?=$_GET['selectError']?>
+        </p>
+        <button>ok</button>
+    </div>
+</div>
+<?php } ?>
+
+
+
+
 <h2>עורך תוכן</h2>
+<?php if(isset($_GET['success']) && isset($_SESSION['message_success'])) {?>
+
+<div class='success msg-to-user' dir='ltr'>
+    <?=$_GET['success'];?>
+    <span>!</span>
+</div>
+<?php 
+    
+    unset($_SESSION['message_success']); 
+    
+    } ?>
+
 <form action="../back_process/page_update/pageUpdate.php" method="POST" id="edit-form">
 
 
     <section>
+        <?php if(isset($_GET['error'])) {?>
+        <div class=' error-editPage'>
+            <?=$_GET['error']?>
+        </div>
+        <?php } ?>
         <p>בחר עמוד ואזור לעריכה:</p>
         <div class='checkers'>
 
@@ -121,10 +164,18 @@
     </span>
     <button class="load-btn" id='select-backup-load-btn'>טען</button>
 </aside>
+
+<?php include 'include_updates/admin_setters.php';?>
+
+
+
 <?php require $pathContent_global . 'footer.php' ?>
 
 <?php require '../include-inFoo/page-scripts.html';?>
-<script src="<?php echo $pathScript_inner?>slider.js"></script>
+<script src="<?php echo $pathScript_inner?>slider.js">
+< script src = "<?php echo $pathScript_inner?>close_alerts.js" >
+</script>
+<script src="<?php echo $pathScript_inner?>EDIT_handle_selected_values.js"></script>
 
 <script src="../script/dir-backup.php"></script>
 
@@ -140,6 +191,7 @@
 /////////////////////////////////// -->
 <script>
 $(document).ready(function() {
+
     //NOTE: textarea options
 
     $('#richText').richText({

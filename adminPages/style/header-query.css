@@ -33,9 +33,9 @@
         right: 0;
         justify-content: flex-end;
     }
-    aside {
+    /* aside {
         top: calc(var(--stripe-height)*3.5);
-    }
+    } */
 }
 
 @media only screen and (max-width:1025px) and (min-width:765px) {}
