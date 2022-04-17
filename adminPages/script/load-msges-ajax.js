@@ -14,6 +14,16 @@ $(() => {
                 if (result != 0) {
                     let data = JSON.parse(result);
                     let elements = data.map((obj) => {
+                        //////////////////
+                        let active_ahz =
+                            obj.ahz == 1 ? "in-messages active" : "in-messages";
+                        let active_nik =
+                            obj.nik == 1 ? "in-messages active" : "in-messages";
+
+                        let active_sho =
+                            obj.sho == 1 ? "in-messages active" : "in-messages";
+
+                        //////////////
                         var frz = obj.stat == "active" ? "freeze" : "unfreeze";
 
                         if (obj.expire === "0000-00-00") {
@@ -37,7 +47,15 @@ $(() => {
                             "greenyellow" :
                             "grey";
 
-                        return elem(obj, frz, color);
+                        return elem(
+                            obj,
+                            frz,
+                            color,
+                            active_sho,
+                            active_ahz,
+                            active_nik,
+                            today
+                        );
                     });
                     elements = elements.join("");
                     $("#active-messages").html(elements);
@@ -51,36 +69,97 @@ $(() => {
     });
 });
 
-const elem = function(obj, frz, color) {
+const elem = function(
+    obj,
+    frz,
+    color,
+    active_sho,
+    active_ahz,
+    active_nik,
+    today
+) {
     return `
 
 <div data-id=${obj.id}>
             <div class="box-header pad">
 
 
-                <button class='save-change-btn' type="submit"></button>
+                <div class="save-block">
+                    <button class='save-change-btn' type="submit" onclick='(function(e,obj){
+                        e.preventDefault();
+
+                        const parent = obj.parentElement.parentElement.parentElement;
+                        const id = parent.getAttribute("data-id");
+                        parent.querySelector(".save-msg").style.visibility = "visible";
+                        if(!parent.querySelector(".changed")){
+                            parent.querySelector(".save-msg").classList.add("err");
+                            parent.querySelector(".save-msg").innerHTML = "nothing to save";
+                        }else{
+                            parent.querySelector(".save-msg").classList.remove("err");
+                            parent.querySelector(".save-msg").innerHTML = "saving...";
+
+                            let selectors = parent.querySelector(".selectors");
+
+                        }
+                        console.log(id);
+                    })(event,this)'></button>
+                    <p class='save-msg'></p>
+                </div>
 
 
 
-                <div>
-                <span class='in-messages' >
+                <div class='selectors'>
+                <p class='${active_sho}' onclick='(function(obj){
+                    obj.classList.toggle("changed");
+
+                    obj.classList.toggle("active");
+                    let inp =obj.firstElementChild;
+                  if(obj.classList.contains("active")){
+                      inp.checked=true;
+                  }else{
+                    inp.checked=false;
+                  }
+                    
+            })(this)'>
                 <input type="checkbox" name="sho-check" checked=${Boolean(
                   obj.sho
                 )} >
                         שומרים
-                    </span>
-                    <span class='in-messages' >
+                    </p>
+                    <p class='${active_ahz}' onclick='(function(obj){
+                        obj.classList.toggle("changed");
+
+                        obj.classList.toggle("active");
+                        let inp =obj.firstElementChild;
+                      if(obj.classList.contains("active")){
+                          inp.checked=true;
+                      }else{
+                        inp.checked=false;
+                      }
+                        
+                })(this)'>
                     <input type="checkbox" name="ahz-check" checked=${Boolean(
                       obj.ahz
                     )}>
                         אחזקה
-                    </span>
-                    <span class='in-messages' >
+                    </p>
+                    <p class='${active_nik}' onclick='(function(obj){
+                        obj.classList.toggle("changed");
+
+                        obj.classList.toggle("active");
+                        let inp =obj.firstElementChild;
+                      if(obj.classList.contains("active")){
+                          inp.checked=true;
+                      }else{
+                        inp.checked=false;
+                      }
+                        
+                })(this)'>
                     <input type="checkbox" name="nik-check" checked=${Boolean(
                       obj.nik
                     )}>
                         ניקיון
-                    </span>
+                    </p>
                 </div>
 
 
@@ -89,24 +168,46 @@ const elem = function(obj, frz, color) {
 ${obj.msg}
             </div>
             <div class="box-footer">
-                <button>delete</button>
-                <button class='exp-date'>
+                <button value='0' class='msgDel' onclick='(function(obj){ 
+                    obj.classList.toggle("changed");
+
+                    obj.classList.toggle("active");
+                if (obj.classList.contains("active")) {
+                    obj.value ="1";
+                } else {
+                    obj.value="0";
+                }})(this)'>delete</button>
+                <button class='exp-date' style='cursor:context-menu' disabled>
 
                     
                         ${obj.expire}
                     
                 </button>
-                <button>${frz}</button>
+                <button class='msgFrz' value='${frz}' onclick='(function(obj){
+                    obj.classList.toggle("changed");
+
+                    obj.classList.toggle("active");
+                if (obj.classList.contains("active")) {
+                  
+                }})(this)'>${frz}</button>
 
             </div>
-            <div class="status">
+            <div class="status" >
                 <p>
                     Status:
                 </p>
                 <p style='color:${color};'>${obj.stat}</p>
                 <p>
-                    New exp:
-                    <input type="date" name="new-msg-date" id="">
+                    Set exp:
+                    <input min="${today}" type="date" name="new-msg-date" onchange='(function(obj){
+                        if(obj.value==""){
+                            obj.classList.remove("changed");
+
+                        }else{
+                            obj.classList.add("changed");
+
+                        }
+                    })(this)'>
                 </p>
             </div>
         </div>

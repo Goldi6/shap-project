@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
             
         }
 
-        $message = isset($_POST['richText']) && spaceCheck($_POST['richText'])==1 ?  $_POST['richText'] : array_push($errors,['msg', '*Empty text field']);
+        $message = isset($_POST['richText']) && spaceCheck($_POST['richText'])==1 ?  '<div class="single-msg">'.$_POST['richText'] ."</div>": array_push($errors,['msg', '*Empty text field']);
 
 
         // echo '<br>msg:'.$message. '<br>';

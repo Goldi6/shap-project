@@ -96,6 +96,10 @@
         
         .in-messages {
             border: 2px solid #333;
+            border-radius: 3px;
+            font-family: var(--ff-base);
+            position: relative;
+            cursor: pointer;
         }
         
         .in-messages::after {
@@ -187,4 +191,57 @@
         .status p:nth-child(2) {
             font-weight: bold;
             font-size: medium;
+        }
+        /* /////////////////////////////// */
+        /* #region active classes */
+        
+        button.msgDel.active {
+            background-color: rgb(132, 45, 45);
+            color: white;
+        }
+        
+        button.msgFrz.active {
+            background-color: rgb(51, 147, 147);
+            color: white;
+        }
+        
+        .status p,
+        .box-footer button {
+            position: relative;
+        }
+        
+        .changed::before {
+            position: absolute;
+            content: '*';
+            top: -15px;
+            left: -7px;
+            color: rgb(137, 137, 46);
+        }
+        
+        input.changed::before {
+            top: -10px;
+            left: 3.5rem;
+        }
+        /* #endregion  */
+        
+        .save-msg {
+            font-size: 0.7rem;
+            background-color: #333;
+            border-radius: 3px;
+            color: white;
+            padding: 3px;
+            visibility: hidden;
+            position: absolute;
+            right: 2rem;
+            letter-spacing: 0.1rem;
+        }
+        
+        .save-msg.err {
+            background-color: transparent;
+            color: red;
+            border: 1px solid red;
+        }
+        
+        .save-block {
+            position: relative;
         }

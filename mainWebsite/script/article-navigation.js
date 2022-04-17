@@ -23,9 +23,30 @@ $(document).ready(function() {
             $("#secondary-nav a").removeClass();
             $(".small").empty();
             ///////////////////////////////////
+            //messages overflow padding-style correction
+
+            let messagesBlock = document.querySelector(".message");
+
+            if (check(messagesBlock)) {
+                messagesBlock.style.paddingTop = "6rem";
+            }
+
+            function check(el) {
+                var curOverf = el.style.overflow;
+
+                if (!curOverf || curOverf === "visible") el.style.overflow = "hidden";
+
+                var isOverflowing =
+                    el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight;
+
+                el.style.overflow = curOverf;
+
+                return isOverflowing;
+            }
+            ///////////////////////////////////
             //show 'no message' <p> im messages:
             //#region
-            console.log();
+            //console.log();
             if ($("p.default").siblings().length == 0) {
                 $(".default").show();
             }
