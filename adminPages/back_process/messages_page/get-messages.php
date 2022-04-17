@@ -39,7 +39,7 @@ if($sho ==0 && $nik==0 && $ahz==0){
  
   while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-      $object = (object) array('msg' => $row['msg'], 'stat'=>$row['stat'],'expire'=>$row['expire_date'],'id'=>$row['random_id'],'sho'=> $row['shomrim'],'nik'=> $row['nikayon'], 'ahz'=> $row['ahzaka']); 
+      $object = (object) array('msg' => $row['msg'], 'stat'=>$row['stat'],'expire'=>$row['expire_date'],'id'=>$row['random_id'],'sho'=> $row['shomrim'],'nik'=> $row['nikayon'], 'ahz'=> $row['ahzaka'], 'origin'=> $row['create_date']); 
 
         array_push($data ,$object );
         }

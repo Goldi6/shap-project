@@ -10,7 +10,7 @@ $(() => {
             type: "POST",
             url: "../back_process/messages_page/get-messages.php",
             success: function(result) {
-                console.log(result);
+                // console.log(result);
                 if (result != 0) {
                     let data = JSON.parse(result);
                     let elements = data.map((obj) => {
@@ -80,7 +80,7 @@ const elem = function(
 ) {
     return `
 
-<div data-id=${obj.id}>
+<div data-id=${obj.id} data-original='${obj.origin}'>
             <div class="box-header pad">
 
 
@@ -89,16 +89,76 @@ const elem = function(
                         e.preventDefault();
 
                         const parent = obj.parentElement.parentElement.parentElement;
-                        const id = parent.getAttribute("data-id");
                         parent.querySelector(".save-msg").style.visibility = "visible";
                         if(!parent.querySelector(".changed")){
+                            
                             parent.querySelector(".save-msg").classList.add("err");
                             parent.querySelector(".save-msg").innerHTML = "nothing to save";
+
                         }else{
                             parent.querySelector(".save-msg").classList.remove("err");
-                            parent.querySelector(".save-msg").innerHTML = "saving...";
 
-                            let selectors = parent.querySelector(".selectors");
+                            var data = {};
+                            data.url = document.querySelector("#url").value;
+
+                            data["id"] = parent.getAttribute("data-id");
+                            data["original_date"] = parent.getAttribute("data-original");
+
+                            data["delete"] =  parent.querySelector(".box-footer .msgDel").value;
+
+                            if (data.delete == 1){
+                                $.ajax({
+                                    data :data,
+                                    url: "../back_process/messages_page/delete-msg.php",
+                                    type: "POST",
+                                    beforeSend: function(){
+                                        parent.querySelector(".save-msg").innerHTML = "deleting...";
+
+                                    }
+                                }).then(function(resolve){
+                                    console.log(resolve);
+                                    if(resolve == "deleted"){
+                                        //console.log("DELETED");
+                                        setTimeout(function(){
+                                            parent.querySelector(".save-msg").style.color ="green";
+                                            parent.querySelector(".save-msg").innerHTML = "deleted!";
+ 
+                                        },500)
+                                        return true;
+                                    }else return false
+                                } ,function(reject){
+                                    parent.querySelector(".save-msg").innerHTML = "server ERROR";
+
+                                }).done(function(result){
+                                    if(result){
+
+                                        setTimeout(function(){
+                                            parent.remove();
+                                        },1000);
+                                    }else{
+                                        parent.querySelector(".save-msg").innerHTML = "server ERROR";
+
+                                    }
+                                })
+                            }else{
+
+                                data["frz"] =  parent.querySelector(".box-footer .msgFrz").value;
+                                data["exp"] =  parent.querySelector(".box-footer .exp-date").value;
+                                data["status"] = parent.querySelector(".status .get-status").textContent;
+                                data["newExp"] = parent.querySelector(".status input[name=new-msg-date]").value;
+                                let checkers =parent.querySelectorAll(".selectors input");
+                                for(inp of checkers){
+                                    data[inp.name] = Number(inp.checked);
+                                   }
+                            }
+
+
+
+                            
+                            console.log(data);
+
+                           // parent.querySelector(".save-msg").innerHTML = "saving...";
+
 
                         }
                         console.log(id);
@@ -110,6 +170,9 @@ const elem = function(
 
                 <div class='selectors'>
                 <p class='${active_sho}' onclick='(function(obj){
+                    const parent = obj.parentElement.parentElement;
+                    parent.querySelector(".save-msg").style.visibility = "hidden";
+
                     obj.classList.toggle("changed");
 
                     obj.classList.toggle("active");
@@ -127,6 +190,9 @@ const elem = function(
                         שומרים
                     </p>
                     <p class='${active_ahz}' onclick='(function(obj){
+                        const parent = obj.parentElement.parentElement;
+                        parent.querySelector(".save-msg").style.visibility = "hidden";
+
                         obj.classList.toggle("changed");
 
                         obj.classList.toggle("active");
@@ -144,6 +210,9 @@ const elem = function(
                         אחזקה
                     </p>
                     <p class='${active_nik}' onclick='(function(obj){
+                        const parent = obj.parentElement.parentElement;
+                        parent.querySelector(".save-msg").style.visibility = "hidden";
+
                         obj.classList.toggle("changed");
 
                         obj.classList.toggle("active");
@@ -169,26 +238,56 @@ ${obj.msg}
             </div>
             <div class="box-footer">
                 <button value='0' class='msgDel' onclick='(function(obj){ 
+                    const parent = obj.parentElement.parentElement;
+                    parent.querySelector(".save-msg").style.visibility = "hidden";
+
                     obj.classList.toggle("changed");
 
                     obj.classList.toggle("active");
                 if (obj.classList.contains("active")) {
-                    obj.value ="1";
+                    obj.value ="1"; 
+
+
+                    parent.classList.add("disabled");
+                    parent.querySelector(".save-msg").innerHTML = "This message will be completely deleted";  
+                    parent.querySelector(".save-msg").classList.remove("err");
+                    
+                    let pStyle = window.getComputedStyle(parent);
+                    pStyle = pStyle.getPropertyValue("width");
+                    pStyle = 80 * parseInt(pStyle) / 100;
+                    //console.log(parseInt(pStyle));
+                    parent.querySelector(".save-msg").style.width = pStyle +"px";
+
+
+
+                     parent.querySelector("input[name=new-msg-date]").disabled=true;
+                    // console.log(parent);
                 } else {
                     obj.value="0";
+                    parent.classList.remove("disabled");
+                    parent.querySelector("input[name=new-msg-date]").disabled=false;
+                    parent.querySelector(".save-msg").style.visibility = "hidden";                        
+
+                    parent.style.filter = "brightness(100%)";
                 }})(this)'>delete</button>
-                <button class='exp-date' style='cursor:context-menu' disabled>
+                <button class='exp-date' style='cursor:context-menu'
+                value='${obj.expire}' disabled>
 
                     
                         ${obj.expire}
                     
                 </button>
-                <button class='msgFrz' value='${frz}' onclick='(function(obj){
+                <button class='msgFrz' value='0' onclick='(function(obj){
+                    const parent = obj.parentElement.parentElement;
+                    parent.querySelector(".save-msg").style.visibility = "hidden";
+
                     obj.classList.toggle("changed");
 
                     obj.classList.toggle("active");
                 if (obj.classList.contains("active")) {
-                  
+                  obj.value=1;
+                }else{
+                    obj.value = 0;
                 }})(this)'>${frz}</button>
 
             </div>
@@ -196,10 +295,13 @@ ${obj.msg}
                 <p>
                     Status:
                 </p>
-                <p style='color:${color};'>${obj.stat}</p>
+                <p style='color:${color};' class='get-status'>${obj.stat}</p>
                 <p>
                     Set exp:
                     <input min="${today}" type="date" name="new-msg-date" onchange='(function(obj){
+                        const parent = obj.parentElement.parentElement.parentElement;
+                        parent.querySelector(".save-msg").style.visibility = "hidden";
+                        
                         if(obj.value==""){
                             obj.classList.remove("changed");
 
@@ -210,6 +312,7 @@ ${obj.msg}
                     })(this)'>
                 </p>
             </div>
+            
         </div>
 
 

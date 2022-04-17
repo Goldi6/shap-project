@@ -196,8 +196,11 @@
         /* #region active classes */
         
         button.msgDel.active {
-            background-color: rgb(132, 45, 45);
+            background-color: rgb(178, 30, 30);
+            /* background-color: red; */
             color: white;
+            border: 3px solid #fff;
+            border-radius: 3px;
         }
         
         button.msgFrz.active {
@@ -225,6 +228,7 @@
         /* #endregion  */
         
         .save-msg {
+            transition: opacity 1 ease-in-out;
             font-size: 0.7rem;
             background-color: #333;
             border-radius: 3px;
@@ -234,6 +238,7 @@
             position: absolute;
             right: 2rem;
             letter-spacing: 0.1rem;
+            text-align: center;
         }
         
         .save-msg.err {
@@ -244,4 +249,44 @@
         
         .save-block {
             position: relative;
+        }
+        
+        .disabled .save-change-btn {
+            border-radius: 50%;
+            padding: 18px;
+            background-color: white;
+        }
+        
+        .disabled {
+            background-color: #777 !important;
+        }
+        
+        .disabled .message-cont {
+            background-color: #666;
+        }
+        
+        .disabled .in-messages,
+        .disabled .msgFrz {
+            pointer-events: none;
+        }
+        
+        .disabled .in-messages.active,
+        .disabled .exp-date {
+            background-color: #666;
+            color: #111;
+        }
+        
+        .disabled .save-msg {
+            z-index: 5;
+            padding: 5px;
+            visibility: visible !important;
+            /* color: rgb(0, 251, 255); */
+            /* color: orange; */
+            text-shadow: 0 0 1px white;
+            color: white;
+            /* font-weight: 500; */
+            /* background-color: white; */
+            right: 3rem;
+            font-size: 0.85rem;
+            direction: ltr;
         }
