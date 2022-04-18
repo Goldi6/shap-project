@@ -67,6 +67,10 @@
         <h3>טען הודעות</h3>
         <div id="load-msg" class="checkers">
             <!-- <button class="load-btn">טען הודעות קיימות</button> -->
+            <input type="checkbox" name="empty-msg-load" value="1" id="empty-msg-load">
+            <span class="radio-btn radio-btn-sub">
+                <legend for="empty-msg">ללא </legend>
+            </span>
             <input type="checkbox" name="shomrim-msg-load" value="1" id="shomrim-msg-load">
             <span class="radio-btn radio-btn-sub">
                 <legend for="shomrim-msg">שומרים</legend>

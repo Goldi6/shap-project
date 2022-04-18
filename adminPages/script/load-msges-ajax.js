@@ -3,14 +3,22 @@ $(() => {
         $shoVal = $("#shomrim-msg-load").is(":checked") ? 1 : 0;
         $nikVal = $("#nikayon-msg-load").is(":checked") ? 1 : 0;
         $ahzVal = $("#ahzaka-msg-load").is(":checked") ? 1 : 0;
+        $emptyVal = $("#empty-msg-load").is(":checked") ? 1 : 0;
+
         $url = $("#url").val();
 
         $.ajax({
-            data: { nik: $nikVal, sho: $shoVal, ahz: $ahzVal },
+            data: {
+                nik: $nikVal,
+                sho: $shoVal,
+                ahz: $ahzVal,
+                empty: $emptyVal,
+                url: $url,
+            },
             type: "POST",
             url: "../back_process/messages_page/get-messages.php",
             success: function(result) {
-                // console.log(result);
+                console.log(result);
                 if (result != 0) {
                     let data = JSON.parse(result);
                     let elements = data.map((obj) => {
