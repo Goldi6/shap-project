@@ -140,6 +140,14 @@
                 </p>
                 <p>active</p>
                 <p>
+                    <input type="checkbox" name="set-new-msg-date" onchange='(function(obj){
+                        if(obj.checked==true){
+                            obj.nextElementSibling.style.display = "initial";
+                        }else{
+                            obj.nextElementSibling.style.display = "none";
+
+                        }
+                    })(this)'>
                     New exp:
                     <input type="date" name="new-msg-date" id="">
                 </p>

@@ -116,12 +116,12 @@ const elem = function(
 
                 <div class="save-block">
                     <button class='save-change-btn' type="submit" onclick='(function(e,obj){
-                        e.preventDefault();
+                        //e.preventDefault();
 
                         const parent = obj.parentElement.parentElement.parentElement;
                         parent.querySelector(".save-msg").style.visibility = "visible";
                         if(!parent.querySelector(".changed")){
-                            
+                            parent.querySelector(".save-msg").style.color="red";
                             parent.querySelector(".save-msg").classList.add("err");
                             parent.querySelector(".save-msg").innerHTML = "nothing to save";
 
@@ -171,11 +171,17 @@ const elem = function(
                                     }
                                 })
                             }else{
+                                let setExp = parent.querySelector(".status input[name=set-new-msg-date]").checked;
+                                if(setExp){
+
+                                    data["newExp"] = parent.querySelector(".status input[name=new-msg-date]").value;
+                                }else{
+                                    data["newExp"] = "";
+                                }
 
                                 data["frz"] =  parent.querySelector(".box-footer .msgFrz").value;
                                 data["exp"] =  parent.querySelector(".box-footer .exp-date").value;
                                 data["status"] = parent.querySelector(".status .get-status").textContent;
-                                data["newExp"] = parent.querySelector(".status input[name=new-msg-date]").value;
                                 let checkers =parent.querySelectorAll(".selectors input");
                                 for(inp of checkers){
                                     let name = inp.name.split("-");
@@ -187,8 +193,9 @@ const elem = function(
                                     url: "../back_process/messages_page/update-msg.php",
                                     type: "POST",
                                     beforeSend: function(){
-                                        console.log(data);
+                                       // console.log(data);
                                         parent.querySelector(".save-msg").innerHTML = "updating...";
+                                        parent.querySelector(".save-msg").style.color = "white";
 
                                     }
                                 }).then(function(resolve){
@@ -224,7 +231,7 @@ const elem = function(
                                  }).done(function(result){
                                     if(result){
                                       
-                            
+                                        
                                         setTimeout(function(){
                                             parent.querySelector(".save-msg").style.color ="yellow";
                                             parent.querySelector(".save-msg").innerHTML = "Updated";
@@ -233,6 +240,11 @@ const elem = function(
                                         setTimeout(function(){
                                             parent.querySelector(".save-msg").classList.add("fadeOut");
                                             },500 );
+                                            setTimeout(function(){
+                                                parent.querySelector(".save-msg").style.visibility = "hidden";
+
+                                                parent.querySelector(".save-msg").classList.remove("fadeOut");
+                                                },1500 );
                                                     
                                       }else{
                                           parent.querySelector(".save-msg").innerHTML = "server ERROR";
@@ -252,6 +264,8 @@ const elem = function(
                         console.log(id);
                     })(event,this)'></button>
                     <p class='save-msg'></p>
+                    <p class='del-msg'>This message will be completely deleted</p>
+
                 </div>
 
 
@@ -337,14 +351,13 @@ ${obj.msg}
 
 
                     parent.classList.add("disabled");
-                    parent.querySelector(".save-msg").innerHTML = "This message will be completely deleted";  
-                    parent.querySelector(".save-msg").classList.remove("err");
+                    parent.querySelector(".del-msg").style.display="block";
                     
                     let pStyle = window.getComputedStyle(parent);
                     pStyle = pStyle.getPropertyValue("width");
                     pStyle = 80 * parseInt(pStyle) / 100;
                     //console.log(parseInt(pStyle));
-                    parent.querySelector(".save-msg").style.width = pStyle +"px";
+                    parent.querySelector(".del-msg").style.width = pStyle +"px";
 
 
 
@@ -354,7 +367,8 @@ ${obj.msg}
                     obj.value="0";
                     parent.classList.remove("disabled");
                     parent.querySelector("input[name=new-msg-date]").disabled=false;
-                    parent.querySelector(".save-msg").style.visibility = "hidden";                        
+                    parent.querySelector(".del-msg").style.display="none";
+
 
                     parent.style.filter = "brightness(100%)";
                 }})(this)'>delete</button>
@@ -386,7 +400,15 @@ ${obj.msg}
                 </p>
                 <p style='color:${color};' class='get-status'>${stat}</p>
                 <p>
-                    Set exp:
+                <input type="checkbox" name="set-new-msg-date" style="display:initial;" onchange='(function(obj){
+                    if(obj.checked==true){
+                        obj.nextElementSibling.style.display = "initial";
+                    }else{
+                        obj.nextElementSibling.style.display = "none";
+                    }
+                    console.log(obj.nextElementSibling.value);
+                })(this)'>
+                    Set exp
                     <input min="${today}" type="date" name="new-msg-date" onchange='(function(obj){
                         const parent = obj.parentElement.parentElement.parentElement;
                         parent.querySelector(".save-msg").style.visibility = "hidden";

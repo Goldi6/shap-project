@@ -223,7 +223,7 @@
         
         input.changed::before {
             top: -10px;
-            left: 3.5rem;
+            left: 13.5rem;
         }
         /* #endregion  */
         
@@ -277,18 +277,7 @@
         }
         
         .disabled .save-msg {
-            z-index: 5;
-            padding: 5px;
-            visibility: visible !important;
-            /* color: rgb(0, 251, 255); */
-            /* color: orange; */
-            text-shadow: 0 0 1px white;
-            color: white;
-            /* font-weight: 500; */
-            /* background-color: white; */
-            right: 3rem;
-            font-size: 0.85rem;
-            direction: ltr;
+            visibility: hidden;
         }
         
         @keyframes fadeout {
@@ -305,4 +294,28 @@
             -moz-animation: fadeout 1s linear;
             -webkit-animation: fadeout 1s linear;
             animation: fadeout 1s linear;
+        }
+        
+        .status :nth-child(3) {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status input[type='date'] {
+            display: none;
+        }
+        
+        .del-msg {
+            position: absolute;
+            right: 2.5rem;
+            top: 2.5rem;
+            background-color: #333;
+            color: white;
+            z-index: 7;
+            text-align: center;
+            padding: 0.25rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            color: yellow;
+            display: none;
         }
