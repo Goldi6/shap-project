@@ -25,19 +25,19 @@ $(() => {
 
                         //////////////
                         var frz = obj.stat == "active" ? "freeze" : "unfreeze";
-
+                        var expire = "";
                         if (obj.expire === "0000-00-00") {
-                            obj.expire = "Fixed";
+                            expire = "Fixed";
                         } else {
-                            obj.expire = new Date(obj.expire);
+                            expire = new Date(obj.expire);
                             const today = new Date("yyyy-mm-dd");
 
-                            if (today > obj.expire) obj.stat = "expired";
+                            if (today > expire) obj.stat = "expired";
 
-                            let day = obj.expire.getDate();
-                            let mo = obj.expire.getMonth() + 1;
-                            let y = obj.expire.getFullYear();
-                            obj.expire = "exp: " + day + "." + mo + "." + y;
+                            let day = expire.getDate();
+                            let mo = expire.getMonth() + 1;
+                            let y = expire.getFullYear();
+                            expire = "exp: " + day + "." + mo + "." + y;
                         }
 
                         let color =
@@ -54,7 +54,8 @@ $(() => {
                             active_sho,
                             active_ahz,
                             active_nik,
-                            today
+                            today,
+                            expire
                         );
                     });
                     elements = elements.join("");
@@ -76,7 +77,8 @@ const elem = function(
     active_sho,
     active_ahz,
     active_nik,
-    today
+    today,
+    expire
 ) {
     return `
 
@@ -123,7 +125,7 @@ const elem = function(
                                             parent.querySelector(".save-msg").style.color ="green";
                                             parent.querySelector(".save-msg").innerHTML = "deleted!";
  
-                                        },500)
+                                        },500);
                                         return true;
                                     }else return false
                                 } ,function(reject){
@@ -150,12 +152,61 @@ const elem = function(
                                 for(inp of checkers){
                                     data[inp.name] = Number(inp.checked);
                                    }
+
+                                   $.ajax({
+                                    data :data,
+                                    url: "../back_process/messages_page/update-msg.php",
+                                    type: "POST",
+                                    beforeSend: function(){
+                                        console.log(data);
+                                        parent.querySelector(".save-msg").innerHTML = "updating...";
+
+                                    }
+                                }).then(function(resolve){
+                                    console.log(resolve);
+                                    if(resolve == "updated"){
+                                        //console.log("UPDATED");
+                                        setTimeout(function(){
+                                            parent.querySelector(".save-msg").style.color ="yellow";
+                                            parent.querySelector(".save-msg").innerHTML = "Updated";
+ 
+                                        },500);
+                                        setTimeout(function(){
+                                            parent.querySelector(".save-msg").classList.add("fadeOut");
+                                            },500 );
+                                        return true;
+                                    }else {
+                                        console.log(resolve);
+
+                                        
+                                        return false};
+                                } ,function(reject){
+                                    parent.querySelector(".save-msg").innerHTML = "server ERROR-rejected";
+
+                                }).done(function(result){
+                                   if(result){
+                                        let changed = parent.querySelectorAll(".changed");
+                                        for(el of changed){
+                                            el.classList.remove("changed");
+                                        }
+                                        
+                                        if(parent.querySelector(".msgFrz").classList.contains("active")){
+                                            parent.querySelector(".msgFrz").classList.remove("active");
+                                        }
+                                       
+                                        //NOTE//UPDATE//UPDATE//UPDATE//UPDATE
+                                        //UPDATE//UPDATE//UPDATE//UPDATE - query for new data
+                                             
+                                     }else{
+                                         parent.querySelector(".save-msg").innerHTML = "server ERROR";
+
+                                     }
+                                 })
                             }
 
 
 
                             
-                            console.log(data);
 
                            // parent.querySelector(".save-msg").innerHTML = "saving...";
 
@@ -274,7 +325,7 @@ ${obj.msg}
                 value='${obj.expire}' disabled>
 
                     
-                        ${obj.expire}
+                        ${expire}
                     
                 </button>
                 <button class='msgFrz' value='0' onclick='(function(obj){

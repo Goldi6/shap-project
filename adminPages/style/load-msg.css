@@ -290,3 +290,19 @@
             font-size: 0.85rem;
             direction: ltr;
         }
+        
+        @keyframes fadeout {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        .fadeOut {
+            opacity: 0;
+            -moz-animation: fadeout 1s linear;
+            -webkit-animation: fadeout 1s linear;
+            animation: fadeout 1s linear;
+        }
