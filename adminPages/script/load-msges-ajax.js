@@ -15,47 +15,18 @@ $(() => {
                     let data = JSON.parse(result);
                     let elements = data.map((obj) => {
                         //////////////////
-                        let active_ahz =
-                            obj.ahz == 1 ? "in-messages active" : "in-messages";
-                        let active_nik =
-                            obj.nik == 1 ? "in-messages active" : "in-messages";
-
-                        let active_sho =
-                            obj.sho == 1 ? "in-messages active" : "in-messages";
-
-                        //////////////
-                        var frz = obj.stat == "active" ? "freeze" : "unfreeze";
-                        var expire = "";
-                        if (obj.expire === "0000-00-00") {
-                            expire = "Fixed";
-                        } else {
-                            expire = new Date(obj.expire);
-                            const today = new Date("yyyy-mm-dd");
-
-                            if (today > expire) obj.stat = "expired";
-
-                            let day = expire.getDate();
-                            let mo = expire.getMonth() + 1;
-                            let y = expire.getFullYear();
-                            expire = "exp: " + day + "." + mo + "." + y;
-                        }
-
-                        let color =
-                            obj.stat == "frozen" ?
-                            "cyan" :
-                            obj.stat == "active" ?
-                            "greenyellow" :
-                            "grey";
+                        const objConf = setUpValues(obj);
 
                         return elem(
                             obj,
-                            frz,
-                            color,
-                            active_sho,
-                            active_ahz,
-                            active_nik,
-                            today,
-                            expire
+                            objConf.frz,
+                            objConf.color,
+                            objConf.sho,
+                            objConf.ahz,
+                            objConf.nik,
+                            objConf.today,
+                            objConf.expire,
+                            objConf.stat
                         );
                     });
                     elements = elements.join("");
@@ -70,6 +41,54 @@ $(() => {
     });
 });
 
+function setUpValues(obj) {
+    let active_ahz = obj.ahz == 1 ? "in-messages active" : "in-messages";
+    let active_nik = obj.nik == 1 ? "in-messages active" : "in-messages";
+
+    let active_sho = obj.sho == 1 ? "in-messages active" : "in-messages";
+
+    //////////////
+    let expire = "";
+    if (obj.expire === "0000-00-00") {
+        expire = "Fixed";
+    } else {
+        console.log(obj.expire);
+        expire = new Date(obj.expire + "T00:00");
+        const today = new Date().setHours(0, 0, 0, 0);
+
+        //console.log(expire + " " + today);
+        //console.log(expire < today);
+
+        if (today > expire) {
+            obj.stat = "expired";
+        }
+
+        let day = expire.getDate();
+        let mo = expire.getMonth() + 1;
+        let y = expire.getFullYear();
+        expire = "exp: " + day + "." + mo + "." + y;
+    }
+    var frz = obj.stat == "active" ? "freeze" : "unfreeze";
+
+    let color =
+        obj.stat == "frozen" ?
+        "cyan" :
+        obj.stat == "active" ?
+        "greenyellow" :
+        "grey";
+
+    return {
+        color: color,
+        frz: frz,
+        expire: expire,
+        today: today,
+        ahz: active_ahz,
+        nik: active_nik,
+        sho: active_sho,
+        stat: obj.stat,
+    };
+}
+
 const elem = function(
     obj,
     frz,
@@ -78,7 +97,8 @@ const elem = function(
     active_ahz,
     active_nik,
     today,
-    expire
+    expire,
+    stat
 ) {
     return `
 
@@ -150,7 +170,8 @@ const elem = function(
                                 data["newExp"] = parent.querySelector(".status input[name=new-msg-date]").value;
                                 let checkers =parent.querySelectorAll(".selectors input");
                                 for(inp of checkers){
-                                    data[inp.name] = Number(inp.checked);
+                                    let name = inp.name.split("-");
+                                    data[name[0]] = String(Number(inp.checked));
                                    }
 
                                    $.ajax({
@@ -164,44 +185,52 @@ const elem = function(
                                     }
                                 }).then(function(resolve){
                                     console.log(resolve);
-                                    if(resolve == "updated"){
-                                        //console.log("UPDATED");
-                                        setTimeout(function(){
-                                            parent.querySelector(".save-msg").style.color ="yellow";
-                                            parent.querySelector(".save-msg").innerHTML = "Updated";
- 
-                                        },500);
-                                        setTimeout(function(){
-                                            parent.querySelector(".save-msg").classList.add("fadeOut");
-                                            },500 );
+                                    let obj = JSON.parse(resolve);
+                                    if(obj.result == "updated"){
+                                        
+                                        const objReady = setUpValues(obj);
+                                        parent.querySelector(".exp-date").innerHTML = objReady.expire;
+                                        if(parent.querySelector(".msgFrz").classList.contains("active")){
+                                            parent.querySelector(".msgFrz").innerHTML = objReady.frz;
+                                            parent.querySelector(".msgFrz").classList.remove("active");
+                                            parent.querySelector(".msgFrz").value = 0;
+                                        }
+                                        parent.querySelector(".get-status").style.color = objReady.color;
+                                        parent.querySelector(".get-status").innerHTML = objReady.stat;
+                                        parent.querySelector("input[name=new-msg-date]").setAttribute("min" , objReady.today);
+
+
+                                        let changed = parent.querySelectorAll(".changed");
+                                        for(el of changed){
+                                             el.classList.remove("changed");
+                                         }
                                         return true;
                                     }else {
-                                        console.log(resolve);
-
+                                        
+                                        console.log("eeeee");
                                         
                                         return false};
                                 } ,function(reject){
                                     parent.querySelector(".save-msg").innerHTML = "server ERROR-rejected";
 
-                                }).done(function(result){
-                                   if(result){
-                                        let changed = parent.querySelectorAll(".changed");
-                                        for(el of changed){
-                                            el.classList.remove("changed");
-                                        }
-                                        
-                                        if(parent.querySelector(".msgFrz").classList.contains("active")){
-                                            parent.querySelector(".msgFrz").classList.remove("active");
-                                        }
-                                       
-                                        //NOTE//UPDATE//UPDATE//UPDATE//UPDATE
-                                        //UPDATE//UPDATE//UPDATE//UPDATE - query for new data
-                                             
-                                     }else{
-                                         parent.querySelector(".save-msg").innerHTML = "server ERROR";
+                                 }).done(function(result){
+                                    if(result){
+                                      
+                            
+                                        setTimeout(function(){
+                                            parent.querySelector(".save-msg").style.color ="yellow";
+                                            parent.querySelector(".save-msg").innerHTML = "Updated";
 
-                                     }
-                                 })
+                                        },500);
+                                        setTimeout(function(){
+                                            parent.querySelector(".save-msg").classList.add("fadeOut");
+                                            },500 );
+                                                    
+                                      }else{
+                                          parent.querySelector(".save-msg").innerHTML = "server ERROR";
+
+                                      }
+                                  })
                             }
 
 
@@ -321,6 +350,7 @@ ${obj.msg}
 
                     parent.style.filter = "brightness(100%)";
                 }})(this)'>delete</button>
+
                 <button class='exp-date' style='cursor:context-menu'
                 value='${obj.expire}' disabled>
 
@@ -346,7 +376,7 @@ ${obj.msg}
                 <p>
                     Status:
                 </p>
-                <p style='color:${color};' class='get-status'>${obj.stat}</p>
+                <p style='color:${color};' class='get-status'>${stat}</p>
                 <p>
                     Set exp:
                     <input min="${today}" type="date" name="new-msg-date" onchange='(function(obj){
