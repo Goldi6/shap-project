@@ -98,10 +98,26 @@ $pathContent_global = '../../global-content/';
         background-color: rgba(255, 255, 255, 0.2);
         border: 2px solid white;
     }
+
+    #scroll-up {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        position: sticky;
+        top: 70vh;
+        right: 0.5rem;
+        z-index: 7;
+        border: 2px solid white;
+        background: url('../style/media/circle-chevron-up-solid.svg') no-repeat center white;
+        background-size: 2.5rem 2.5rem;
+        visibility: hidden;
+    }
     </style>
 </head>
 
 <body>
+    <button id="scroll-up"></button>
+
     <?php if(isset($_GET['connerror'])) {?>
     <div id='alert'>
         <?=$_GET['connerror']?>
@@ -129,9 +145,7 @@ $pathContent_global = '../../global-content/';
                 <?=$_SESSION['user_name']?>
             </div>
 
-            <div>
-                Add user
-            </div>
+
             <div id="log-out">
                 <a href='../back_process/login/logout.php'>LogOut</a>
             </div>

@@ -18,7 +18,7 @@ $(() => {
             type: "POST",
             url: "../back_process/messages_page/get-messages.php",
             success: function(result) {
-                console.log(result);
+                //console.log(result);
                 if (result != 0) {
                     let data = JSON.parse(result);
                     let elements = data.map((obj) => {
@@ -60,7 +60,7 @@ function setUpValues(obj) {
     if (obj.expire === "0000-00-00") {
         expire = "Fixed";
     } else {
-        console.log(obj.expire);
+        //console.log(obj.expire);
         expire = new Date(obj.expire + "T00:00");
         const today = new Date().setHours(0, 0, 0, 0);
 

@@ -1,4 +1,5 @@
 <!-- //#region -->
+<!-- setters for inputs->if user got an error before sending a form -->
 <?php 
 
 function createInp($sess,$fieldId){
