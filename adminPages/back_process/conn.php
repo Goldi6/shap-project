@@ -10,8 +10,8 @@ try{
 }catch(PDOException $e){
  $er= 'Connection failed : '.$e->getMessage();
     $msg = 'Can\'t connect to the server, please try again later';
-    //FIXME
-    $loc = $domain .$url.'?connerror=' . $msg;
+
+    $loc = $_SERVER['HTTP_HOST'] .$url.'?connerror=' . $msg;
  
      header('Location:'.$loc);
 }

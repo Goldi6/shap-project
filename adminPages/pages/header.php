@@ -41,6 +41,8 @@ $pathContent_global = '../../global-content/';
     <link rel="stylesheet" href="<?= $pathStyle_inner?>load-msg.css">
     <link rel="stylesheet" href="<?= $pathStyle_inner?>header-query.css">
     <link rel="stylesheet" href="<?= $pathStyle_inner?>alert-errors.css">
+    <link rel="stylesheet" href="<?= $pathStyle_inner?>admin-page.css">
+
 
 
 
@@ -112,6 +114,15 @@ $pathContent_global = '../../global-content/';
         background-size: 2.5rem 2.5rem;
         visibility: hidden;
     }
+
+    #gotoMain {
+
+        color: var(--clr-secondary);
+    }
+
+    #gotoMain:hover {
+        filter: hue-rotate(55deg);
+    }
     </style>
 </head>
 
@@ -130,6 +141,7 @@ $pathContent_global = '../../global-content/';
                 שאפ <span>Admin</span>
             </span>
             <div id="nav-btns">
+                <button id='gotoMain'><a href="">אתר ראשי</a></button>
                 <button class="nav-btn " value="CreateMsg"><a href="CreateMsg.php">צור הודעה</a></button>
                 <button class="nav-btn" value="EditPages"><a href="EditPages.php">ערוך עמודים</a></button>
 

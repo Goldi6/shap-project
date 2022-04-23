@@ -166,7 +166,7 @@
 <script src="<?php echo $pathScript_inner?>MSG_handle_selected_values.js"></script>
 <script src="<?php echo $pathScript_inner?>load-msges-ajax.js"></script>
 
-
+<script src="<?php echo $pathScript_inner?>scroll-arrow.js"></script>
 
 <script>
 $(function() {

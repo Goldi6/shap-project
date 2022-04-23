@@ -182,7 +182,7 @@
 
 
 
-<!-- <script src="../script/dir.php"></script>
+<script src="../script/dir.php"></script>
 
 <script //FIXME src="../script/load_sectionBtns.js">
 

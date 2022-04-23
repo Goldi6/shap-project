@@ -47,7 +47,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
                     $_SESSION['user_id'] =$user_id;
                     $_SESSION['user_name'] = $user_name;
                     $_SESSION['user_email'] = $user_email;
-                    $_SESSION['user-status'] = $user_status;
+                    $_SESSION['user_status'] = $user_status;
                     header("Location: ../../pages/CreateMsg.php");
 
                 }
