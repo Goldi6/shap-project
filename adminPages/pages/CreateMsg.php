@@ -1,27 +1,13 @@
-<?php require 'header.php'?>
+<?php require 'header.php' ; ?>
 
 
 <h2>צור הודעה חדשה</h2>
-<?php if(isset($_GET['success']) && isset($_SESSION['message_success'])) {?>
-
-<div class='success msg-to-user'>
-    <?=$_GET['success'];?>
-    <span>!</span>
-</div>
-<?php 
-    
-    unset($_SESSION['message_success']); 
-    
-    } ?>
+<?php  require 'success_GET.php';?>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
     <input type="text" style='display:none' name='url' id='url' value='<?=$_SERVER['REQUEST_URI']?>'>
     <section>
-        <?php if(isset($_GET['error'])) {?>
-        <div class='alert' style="white-space: pre-line">
-            <?=$_GET['error']?>
-        </div>
-        <?php } ?>
+        <?php $error = 'error';require 'error_GET.php'; ?>
         <p>סמן לאיזה עמודים להעלות את ההודעה:</p>
         <div class='checkers'>
 

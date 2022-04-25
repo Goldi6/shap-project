@@ -90,7 +90,8 @@ body {
     position: relative;
 }
 
-.error-editPage {
+
+/* .error-editPage {
     color: red;
     font-size: small;
     margin: auto;
@@ -99,4 +100,4 @@ body {
     border: 1px solid black;
     padding: 5px;
     direction: ltr;
-}
+} */

@@ -28,28 +28,15 @@
 
 
 <h2>עורך תוכן</h2>
-<?php if(isset($_GET['success']) && isset($_SESSION['message_success'])) {?>
-
-<div class='success msg-to-user' dir='ltr'>
-    <?=$_GET['success'];?>
-    <span>!</span>
-</div>
-<?php 
-    
-    unset($_SESSION['message_success']); 
-    
-    } ?>
+<?php require 'success_GET.php'; ?>
 
 <form action="../back_process/page_update/pageUpdate.php" method="POST" id="edit-form">
 
     <input type="text" style='display:none' name='url' id='url' value='<?=$_SERVER['REQUEST_URI']?>'>
 
     <section>
-        <?php if(isset($_GET['error'])) {?>
-        <div class=' error-editPage'>
-            <?=$_GET['error']?>
-        </div>
-        <?php } ?>
+        <?php require 'error_GET.php'; ?>
+
         <p>בחר עמוד ואזור לעריכה:</p>
         <div class='checkers'>
 
