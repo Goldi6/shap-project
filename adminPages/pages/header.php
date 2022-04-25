@@ -153,8 +153,10 @@ $pathContent_global = '../../global-content/';
         </div>
         <!-- //user -->
         <div id="user">
-            <div>
-                <?=$_SESSION['user_name']?>
+            <div id='admin-link'>
+                <a href="Admin.php">
+                    <?=$_SESSION['user_name']?>
+                </a>
             </div>
 
 
