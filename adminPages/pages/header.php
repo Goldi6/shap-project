@@ -118,6 +118,7 @@ $pathContent_global = '../../global-content/';
     #gotoMain {
 
         color: var(--clr-secondary);
+        margin-left: 1rem;
     }
 
     #gotoMain:hover {

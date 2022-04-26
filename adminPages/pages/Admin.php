@@ -80,7 +80,20 @@
 
         </div>
         <!-- //////////////////////////// -->
+    </section>
+    <section class="admin-section-cont">
+        <?php
+        
+        if($_SESSION['user_status']==1){     
 
+            if(file_exists('extra/Admin-user-editor.php')){
+        
+                include 'extra/Admin-user-editor.php';
+            }
+
+        }?>
+
+    </section>
 </main>
 <script>
 $(() => {
