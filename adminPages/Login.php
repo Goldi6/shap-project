@@ -37,6 +37,26 @@
         transform: skew(20deg);
 
     }
+
+    #login-container a {
+        font-size: small;
+        color: var(--clr-secondary);
+        text-decoration: underline;
+    }
+
+    #login-container a:hover {
+        filter: brightness(65%);
+    }
+
+    #login-container a:active {
+        color: #333;
+    }
+
+    #reset-links-cont {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 3rem
+    }
     </style>
 </head>
 
@@ -75,6 +95,33 @@
                 <input type="text" name="username" id="username" placeholder='שם משתמש'>
                 <input type="password" name='password' id='password' placeholder='סיסמא'>
                 <input type="submit" name='submit' id='submit' value='login'>
+                <a href="" id='forgot-login'>שכחתי סיסמא</a>
+            </fieldset>
+        </form>
+        <form action="back_process/login/pass-reset.php" method='POST' id='reset-form' name='reset-form-name'
+            style="display:none">
+            <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
+
+            <p id="legend">שחזור סיסמא</p>
+            <fieldset>
+
+                <?php if(isset($_GET['error'])) {?>
+                <div class='alert'>
+                    <?=$_GET['error']?>
+                </div>
+                <?php } ?>
+                <?php if(isset($_GET['connerror'])) {?>
+                <div class='alert'>
+                    <?=$_GET['connerror']?>
+                </div>
+                <?php } ?>
+                <div id='reset-links-cont'><a href="#" id='reset-by-email'>אימייל</a><a id='reset-by-name' href="#">שם
+                        משתמש</a></div>
+                <input type="text" name="username-reset" id="username-reset" placeholder='שם משתמש'>
+                <input type="email" name='email-reset' id='email-reset' placeholder='אימייל' style="display:none">
+                <input type="submit" name='submit-reset' id='submit-reset' value='send'>
+                <a href="" id='back-login'>חזור</a>
+
             </fieldset>
         </form>
     </div>
@@ -108,6 +155,49 @@ form.addEventListener('submit', function(e) {
 
     }
 })
+
+const formsContainer = document.getElementById('login-container');
+
+
+
+
+const resetForm = document.getElementById("reset-form");
+const loginForm = document.getElementById("login-form");
+
+const nameResetField = document.getElementById("username-reset");
+const emailResetField = document.getElementById("email-reset");
+
+console.log(resetForm);
+document.getElementById('reset-by-name').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    resetForm.setAttribute('name', 'reset-form-name');
+    emailResetField.style.display = 'none';
+    nameResetField.style.display = 'block';
+
+});
+document.getElementById('reset-by-email').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    resetForm.setAttribute('name', 'reset-form-email');
+    nameResetField.style.display = 'none';
+    emailResetField.style.display = 'block';
+
+});
+
+
+
+document.getElementById("back-login").addEventListener("click", (e) => {
+    e.preventDefault();
+    resetForm.style.display = 'none';
+    loginForm.style.display = 'block';
+});
+document.getElementById("forgot-login").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    resetForm.style.display = 'block';
+    loginForm.style.display = 'none';
+});
 </script>
 
 </html>

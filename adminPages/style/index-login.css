@@ -46,7 +46,8 @@ form input {
 }
 
 input[type='text'],
-input[type='password'] {
+input[type='password'],
+input[type='email'] {
     color: var(--clr-secondary);
     border: none;
     text-align: center;
