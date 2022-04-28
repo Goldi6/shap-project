@@ -33,43 +33,48 @@
                     <button class='active admin-nav-btn' id='change-pass-nav'>שנה סיסמא</button><button
                         class='admin-nav-btn' id='change-email-nav'>עדכן אימייל</button>
                 </div>
-                <form class='toggle-display' action="" id='change-email'>
+                <form class='toggle-display' action="../back_process/admin/email-change.php" method="post"
+                    id='change-email-form' name='change-email-form'>
                     <div class="grid-1">
 
 
                         <div class="grid-2">
                             <label for="new-email" placeholder=''>אימייל חדש</label>
                             <label for="repeat-email">אימות אימייל</label>
-                            <label for="old-pass" class="verify">קוד אימות</label>
+                            <label for="verify-code" class="verify">קוד אימות</label>
                         </div>
                         <div class="grid-2">
+                            <p class='not-allowed'>קוד אימת נשלח לאימייל החדש</p>
                             <input type="email" name="new-email" id="new-email" autocomplete="on">
 
                             <input type="email" name="repeat-email" id="repeat-email">
 
-                            <input type="text">
+                            <input type="text" name="verify-code" id="verify-code" disabled>
                         </div>
                     </div>
-                    <div><input type="submit" value="שלח קוד"></div>
+                    <div><input type="submit" value="שלח קוד" name='submit-email-change'></div>
                 </form>
-                <form class='toggle-display' action="" id="change-password">
+                <form class='toggle-display' action="../back_process/admin/pass-reset-admin.php" method="post"
+                    id="change-password" name="change-password-form">
                     <div class="grid-1">
 
                         <div class="grid-2">
                             <label for="old-pass">סיסמא נוכחית</label>
-                            <label for="old-pass">סיסמא חדשה</label>
-                            <label for="old-pass">אימות סיסמא</label>
-                            <!-- <label for="old-pass" class="verify">קוד אימות</label> -->
-                            <input type="submit" value="שכחתי" id='forgot-pass'>
+                            <label for="new-pass">סיסמא חדשה</label>
+                            <label for="retype-new-pass">אימות סיסמא</label>
+                            <button id='forgot-pass'>שחכתי סיסמא</button>
                         </div>
                         <div class="grid-2">
-                            <input type="password">
+                            <p class="not-allowed">* not allowed: '&#38;', '&#34;', '&#60;', '&#62;', '&#39;', '&#47;',
+                                '&#92;', ' '.
+                            </p>
+                            <p class="not-allowed">* passwords not matching.
+                            </p>
+                            <input type="password" name="old-pass" id="old-pass">
+                            <input type="password" name="new-pass" id="new-pass">
 
-                            <input type="password">
-
-                            <input type="password">
-                            <!-- <input type="text"> -->
-                            <input type="submit" value="עדכן">
+                            <input type="password" name="retype-new-pass" id="retype-new-pass">
+                            <input type="submit" value="עדכן" name='submit-pass-change'>
                         </div>
                     </div>
 
@@ -81,8 +86,7 @@
         </div>
         <!-- //////////////////////////// -->
     </section>
-    <section class="admin-section-cont">
-        <?php
+    <?php
         
         if($_SESSION['user_status']==1){     
 
@@ -93,39 +97,9 @@
 
         }?>
 
-    </section>
 </main>
-<script>
-$(() => {
 
-
-
-
-
-
-
-
-
-
-    $('.admin-nav-btn').click(function() {
-        let btn = $(this);
-        const nav = btn.parent();
-        let parent = btn.parents('.admin-cont-parent');
-
-        nav.find('.admin-nav-btn').removeClass('active');
-        btn.addClass('active');
-        ///////////////////
-        let toggle = parent.children('.toggle-display');
-        for (el of toggle) {
-            let dis = window.getComputedStyle(el).display;
-            let b = dis == 'none' ? el.style.display = 'block' : el.style.display = 'none'
-
-        }
-
-    });
-
-})
-</script>
 
 
 <?php require $pathContent_global . 'footer.php' ?>
+<script src='../script/admin-changeForms.js'></script>
