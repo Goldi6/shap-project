@@ -40,17 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
 
         $message = isset($_POST['richText']) && spaceCheck($_POST['richText'])==1 ?  '<div class="single-msg">'.$_POST['richText'] ."</div>": array_push($errors,['msg', '*Empty text field']);
 
-
-        // echo '<br>msg:'.$message. '<br>';
-      
-
-        // echo('selected:' . '<br> shomrim = ' . $shomrim . '<br> nikayon = ' .$nikayon. '<br> ahzaka = ' .$ahzaka. '<br>' );
-        // echo('msg expires on:' .$expire . '<br>');
-
-        // echo('created on: ' . $dateCreated .'<br>');
-
-        // echo('message: ' . $message );
-        // echo('err:<br>' );
         if(empty($errors)){
             //echo('no errors!');
             require 'msg_insert.php';
@@ -80,7 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
                 
                 $e.= '<br>'.$error[1];
             }
-            //$e = ltrim($e, '\n');
             $e=substr($e , 4 );
                       
              $head = '../../pages/CreateMsg.php?error='.$e;

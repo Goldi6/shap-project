@@ -3,7 +3,7 @@ session_start();
 require_once '../conn.php';
 
 
-$options =  ['cost' => 12];
+//$options =  ['cost' => 12];
 
 
 $url = $_POST['url'];
@@ -71,6 +71,9 @@ if(!isset($er)){
                         $_SESSION['user_email'] = $user_email;
                         $_SESSION['user_status'] = $user_status;
                         header("Location: ../../pages/CreateMsg.php");
+
+                    }else{
+                        header("Location: ../../Login.php?error=Incorrect username or password *");
 
                     }
             
