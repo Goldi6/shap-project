@@ -41,8 +41,11 @@
                         <?=$_GET['changeEmailError']?>
                     </div>
                     <?php } ?>
+                    <div class='alert' id='emailSet-error' style="white-space: pre-line" style='display:none'>
+                    </div>
+                    <div class='alert' id='emailSet-stamp' style="white-space: pre-line;display:none;color:orange;">
+                    </div>
                     <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
-
                     <div class="grid-1">
 
 
@@ -118,6 +121,49 @@
 
 
 <?php require $pathContent_global . 'footer.php' ?>
+<?php if( isset($_SESSION['email_token_exp']) && isset($_SESSION['email_token_rand'])){
+    $time = new DateTime("now",new DateTimeZone('Asia/Jerusalem'));
+    $exp = new DateTime($_SESSION['email_token_exp'],new DateTimeZone('Asia/Jerusalem'));
+    print_r($time);
+    echo  "<br>";
+    print_r($exp);
+    if($time > $exp){
+                echo'gooooo';
+                
+                unset($_SESSION['email_token']);
+
+                unset($_SESSION['email_token_exp']);
+            }else{
+                ?>
+<script>
+$(() => {
+    window.id_to_timer = "emailSet-stamp";
+    window.time_to_timer = "<?=$_SESSION['email_token_exp']?>";
+    window.email_token = "<?=$_SESSION['email_token_rand']?>";
+    $.getScript("../script/timer.js");
+
+    window.form = document.forms["change-email-form"];
+    window.inputs = form.elements;
+    for (inp of inputs) {
+        if (inp.type === "email") {
+            inp.value = '<?=$_SESSION['email_token']?>';
+        }
+
+    }
+
+
+    $.getScript("../script/Admin_set_email_values.js");
+
+
+
+})
+</script>
+<?php
+            }
+}
+
+
+?>
 <script src='../script/admin-changeForms.js'></script>
 
 <?php

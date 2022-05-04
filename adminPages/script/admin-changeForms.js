@@ -92,54 +92,104 @@ $(document).ready(function() {
     //#region email form
 
     function verifyEmail(form) {
-        let b = [];
-        const emailValidate = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-        const codeValidate = /\d{5}/;
-        const inputs = form.elements;
-        values = [];
+        if (form.getAttribute("data-token") > 1) {
+            return "ready";
+        } else {
+            let b = [];
+            const emailValidate = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+            const codeValidate = /\d{5}/;
+            const inputs = form.elements;
+            values = [];
 
-        for (i = 0; i < inputs.length; i++) {
-            inputs[i].style.border = "#333 solid 1px";
+            for (i = 0; i < inputs.length; i++) {
+                inputs[i].style.border = "#333 solid 1px";
 
-            if (inputs[i].nodeName === "INPUT" && inputs[i].type === "email") {
-                let inpVal = inputs[i].value.trim();
-                values.push(inpVal);
-                if (inpVal == "") {
-                    inputs[i].style.border = "red solid 1px";
-                    b.push(false);
-                }
-                if (!emailValidate.test(inpVal)) {
-                    inputs[i].style.border = "red solid 1px";
+                if (inputs[i].nodeName === "INPUT" && inputs[i].type === "email") {
+                    let inpVal = inputs[i].value.trim();
+                    values.push(inpVal);
+                    if (inpVal == "") {
+                        inputs[i].style.border = "red solid 1px";
+                        b.push(false);
+                    }
+                    if (!emailValidate.test(inpVal)) {
+                        inputs[i].style.border = "red solid 1px";
 
-                    b.push(emailValidate.test(inpVal));
+                        b.push(emailValidate.test(inpVal));
+                    }
                 }
             }
-        }
-        if (b.every((bl) => bl)) {
-            if (values[0] === values[1]) {
-                for (inp of inputs) {
-                    if (inp.type === "email") {
-                        inp.style.border = "#333 solid 1px";
-                        inp.setAttribute("disabled", "");
-                    }
-                    if (inp.type === "text") {
-                        inp.removeAttribute("disabled");
-                    }
+            if (b.every((bl) => bl)) {
+                if (values[0] === values[1]) {
+                    $.ajax({
+                        data: {
+                            setEmail: values[0],
+                            againEmail: values[1],
+                            url: $("#url").val(),
+                        },
+                        method: "post",
+                        url: "../back_process/admin/generate_token.php",
+                    }).done(function(data) {
+                        data = JSON.parse(data);
+                        console.log(data);
+                        if (data.result === "generated") {
+                            console.log(data.temp_email);
+                            console.log(data.stamp);
+                            window.id_to_timer = "emailSet-stamp";
+                            window.time_to_timer = data.stamp;
+                            window.inputs = inputs;
+                            window.form = form;
+                            window.email_token = data.email_token;
+                            $.getScript("../script/timer.js");
+                            $.getScript("../script/Admin_set_email_values.js");
+
+                            return "verified";
+                        } else if (data.result === "fail") {
+                            $("#emailSet-error").text(data.error).show();
+                            return "error";
+                        }
+                    });
                 }
-                form.setAttribute("name", "change-email-form-verify");
-                console.log("ok");
             }
         }
     }
 
     document.forms["change-email-form"].addEventListener("submit", function(e) {
         e.preventDefault();
-        verifyEmail(this);
+        let b = verifyEmail(this);
+        //console.log(b);
+        if (b == "ready" && this.getAttribute("data-token")) {
+            if (
+                this.elements["verify-code"].value.length === 4 &&
+                this.elements["repeat-email"].value !== "" &&
+                this.elements["new-email"].value !== ""
+            ) {
+                this.submit();
+            } else {
+                $("#emailSet-error").text("* input verification code code").show();
+            }
+        }
     });
     $('input[name="submit-email-change"]').bind("keyup", function(e) {
         if (e.keyCode === 13) {
             e.preventDefault();
-            verifyEmail(document.forms["change-email-form"]);
+            let b = verifyEmail(document.forms["change-email-form"]);
+            //console.log(b);
+            if (
+                b == "ready" &&
+                document.forms["change-email-form"].getAttribute("data-token")
+            ) {
+                if (
+                    document.forms["change-email-form"].elements["verify-code"].value
+                    .length === 4 &&
+                    document.forms["change-email-form"].elements["repeat-email"].value !==
+                    "" &&
+                    document.forms["change-email-form"].elements["new-email"].value !== ""
+                ) {
+                    document.forms["change-email-form"].submit();
+                } else {
+                    $("#emailSet-error").text("* input verification code").show();
+                }
+            }
         }
     });
 
