@@ -2,17 +2,20 @@ $(document).ready(function() {
     //#region buttons
     $(" .admin-nav-btn").click(function() {
         let btn = $(this);
+        let data = btn.attr("id");
+        let formId = data.split("-")[0] + "-" + data.split("-")[1] + "-form";
         const nav = btn.parent();
         let parent = btn.parents(".admin-cont-parent");
         nav.find(".admin-nav-btn").removeClass("active");
         btn.addClass("active");
+
         let toggle = parent.children(".toggle-display");
         for (el of toggle) {
-            let dis = window.getComputedStyle(el).display;
-            let b =
-                dis == "none" ?
-                (el.style.display = "block") :
-                (el.style.display = "none");
+            if (el.id == formId) {
+                el.style.display = "grid";
+            } else {
+                el.style.display = "none";
+            }
         }
     });
     $("#forgot-pass").click(function(e) {
@@ -21,7 +24,9 @@ $(document).ready(function() {
     });
 
     //#endregion
-    $("input").keydown(function(event) {
+    $(
+        "#create-user-form input,#change-email-form input,#change-password input"
+    ).keydown(function(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
             return false;
@@ -121,6 +126,7 @@ $(document).ready(function() {
                         inp.removeAttribute("disabled");
                     }
                 }
+                form.setAttribute("name", "change-email-form-verify");
                 console.log("ok");
             }
         }

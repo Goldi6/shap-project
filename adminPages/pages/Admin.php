@@ -1,5 +1,6 @@
 <?php require 'header.php';?>
 <main class='admin-main'>
+
     <section class="admin-section-cont">
         <!-- ///////////////////////////////////////////////// -->
         <h3>הגדרות פרופיל</h3>
@@ -30,11 +31,18 @@
 
             <div id="user-forms" class='admin-cont-parent'>
                 <div class="form-nav">
-                    <button class='active admin-nav-btn' id='change-pass-nav'>שנה סיסמא</button><button
+                    <button class='active admin-nav-btn' id='change-password-nav'>שנה סיסמא</button><button
                         class='admin-nav-btn' id='change-email-nav'>עדכן אימייל</button>
                 </div>
                 <form class='toggle-display' action="../back_process/admin/email-change.php" method="post"
                     id='change-email-form' name='change-email-form'>
+                    <?php if(isset($_GET['changeEmailError'])) {?>
+                    <div class='alert' style="white-space: pre-line">
+                        <?=$_GET['changeEmailError']?>
+                    </div>
+                    <?php } ?>
+                    <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
+
                     <div class="grid-1">
 
 
@@ -45,17 +53,25 @@
                         </div>
                         <div class="grid-2">
                             <p class='not-allowed'>קוד אימת נשלח לאימייל החדש</p>
-                            <input type="email" name="new-email" id="new-email" autocomplete="on">
+                            <input type="email" name="new-email" id="new-email" autocomplete="on" autocomplete="email">
 
-                            <input type="email" name="repeat-email" id="repeat-email">
+                            <input type="email" name="repeat-email" id="repeat-email" autocomplete="email">
 
-                            <input type="text" name="verify-code" id="verify-code" disabled>
+                            <input type="text" name="verify-code" id="verify-code" disabled
+                                autocomplete="one-time-code">
                         </div>
                     </div>
                     <div><input type="submit" value="שלח קוד" name='submit-email-change'></div>
                 </form>
                 <form class='toggle-display' action="../back_process/admin/pass-reset-admin.php" method="post"
-                    id="change-password" name="change-password-form">
+                    id="change-password-form" name="change-password-form">
+                    <?php if(isset($_GET['changePasswordError'])) {?>
+                    <div class='alert' style="white-space: pre-line">
+                        <?=$_GET['changePasswordError']?>
+                    </div>
+                    <?php } ?>
+                    <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
+
                     <div class="grid-1">
 
                         <div class="grid-2">
@@ -70,7 +86,7 @@
                             </p>
                             <p class="not-allowed">* passwords not matching.
                             </p>
-                            <input type="password" name="old-pass" id="old-pass">
+                            <input type="password" name="old-pass" id="old-pass" autocomplete="current-password">
                             <input type="password" name="new-pass" id="new-pass">
 
                             <input type="password" name="retype-new-pass" id="retype-new-pass">
@@ -103,3 +119,15 @@
 
 <?php require $pathContent_global . 'footer.php' ?>
 <script src='../script/admin-changeForms.js'></script>
+
+<?php
+if($_SESSION['user_status']==1){     
+
+if(file_exists('extra/verify.js') && file_exists('extra/admin-fetch-users.js')){
+?>
+<?="<script src='extra/verify.js'></script>"?>
+<?="<script src='extra/admin-fetch-users.js'></script>"?>
+
+<?php }
+
+}?>

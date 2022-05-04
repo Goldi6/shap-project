@@ -92,8 +92,9 @@
                 </div>
                 <?php } ?>
 
-                <input type="text" name="username" id="username" placeholder='שם משתמש'>
-                <input type="password" name='password' id='password' placeholder='סיסמא'>
+                <input type="text" name="username" id="username" placeholder='שם משתמש' autocomplete="username">
+                <input type="password" name='password' id='password' placeholder='סיסמא'
+                    autocomplete="current-password">
                 <input type="submit" name='submit' id='submit' value='login'>
                 <a href="" id='forgot-login'>שכחתי סיסמא</a>
             </fieldset>
