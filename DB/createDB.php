@@ -34,15 +34,16 @@ last_update INT(5),
 date_of_last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 username VARCHAR(10) NOT NULL UNIQUE,
 password VARCHAR(255) NOT NULL,
-email VARCHAR(30) UNIQUE,
+email VARCHAR(35) UNIQUE  DEFAULT NULL,
 status INT(1) NOT NULL,
-reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+email_verified TINYINT(1) DEFAULT 0
 )";
 
 if ($conn->query($sql) === TRUE) {
-  echo "Table Users created successfully";
+  echo "<br>Table Users created successfully";
 } else {
-  echo "Error creating table: " . $conn->error;
+  echo "<br>Error creating table: " . $conn->error;
 }
 
 // sql to create messages table
@@ -62,12 +63,30 @@ $sql = "CREATE TABLE IF NOT EXISTS Messages (
     )";
     
     if ($conn->query($sql) === TRUE) {
-      echo "Table Messages created successfully";
+      echo "<br>Table Messages created successfully";
     } else {
-      echo "Error creating table: " . $conn->error;
+      echo "<br>Error creating table: " . $conn->error;
     }
 
 
+
+    $sql = 'CREATE TABLE IF NOT EXISTS tokens(
+      id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      user_id INT(6) NOT NULL,
+      token INT(6) NOT NULL,
+      email_password VARCHAR(8),
+      temp_value VARCHAR(35),
+      verified TINYINT(1),
+      expiry_time TIMESTAMP
+
+    )';
+
+
+if ($conn->query($sql) === TRUE) {
+  echo "<br>Table Tokens created successfully";
+} else {
+  echo "<br>Error creating table: " . $conn->error;
+}
 $conn->close();
 
 
