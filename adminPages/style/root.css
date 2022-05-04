@@ -73,10 +73,11 @@ a {
 
 .success {
     display: inline-block;
-    position: absolute;
-    top: var(--stripe-height);
+    position: fixed;
+    top: calc(var(--stripe-height)*1.25);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%);
+    z-index: 25;
 }
 
 .success span {

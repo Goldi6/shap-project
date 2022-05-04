@@ -166,6 +166,7 @@ $pathContent_global = '../../global-content/';
             </div>
         </div>
     </nav>
+    <?php include '../pages/success_GET.php';?>
 
     <script>
     $(() => {

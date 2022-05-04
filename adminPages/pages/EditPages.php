@@ -28,7 +28,6 @@
 
 
 <h2>עורך תוכן</h2>
-<?php require 'success_GET.php'; ?>
 
 <form action="../back_process/page_update/pageUpdate.php" method="POST" id="edit-form">
 

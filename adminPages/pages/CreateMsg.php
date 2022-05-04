@@ -2,7 +2,6 @@
 
 
 <h2>צור הודעה חדשה</h2>
-<?php  require 'success_GET.php';?>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
     <input type="text" style='display:none' name='url' id='url' value='<?=$_SERVER['REQUEST_URI']?>'>
