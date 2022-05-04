@@ -34,7 +34,7 @@
                     <button class='active admin-nav-btn' id='change-password-nav'>שנה סיסמא</button><button
                         class='admin-nav-btn' id='change-email-nav'>עדכן אימייל</button>
                 </div>
-                <form class='toggle-display' action="../back_process/admin/email-change.php" method="post"
+                <form class='toggle-display' action="../back_process/admin/email-change.php" method='POST'
                     id='change-email-form' name='change-email-form'>
                     <?php if(isset($_GET['changeEmailError'])) {?>
                     <div class='alert' style="white-space: pre-line">
@@ -124,11 +124,9 @@
 <?php if( isset($_SESSION['email_token_exp']) && isset($_SESSION['email_token_rand'])){
     $time = new DateTime("now",new DateTimeZone('Asia/Jerusalem'));
     $exp = new DateTime($_SESSION['email_token_exp'],new DateTimeZone('Asia/Jerusalem'));
-    print_r($time);
-    echo  "<br>";
-    print_r($exp);
+    
     if($time > $exp){
-                echo'gooooo';
+               
                 
                 unset($_SESSION['email_token']);
 
@@ -146,7 +144,7 @@ $(() => {
     window.inputs = form.elements;
     for (inp of inputs) {
         if (inp.type === "email") {
-            inp.value = '<?=$_SESSION['email_token']?>';
+            inp.setAttribute('value', '<?=$_SESSION['email_token']?>');
         }
 
     }

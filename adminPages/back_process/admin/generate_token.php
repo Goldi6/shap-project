@@ -1,11 +1,7 @@
 <?php 
 
 session_start();
-function clearEmail($email){
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-    return $email;
-}
+require_once 'clearEmail_func.php';
 
 $data = [];
 
@@ -36,16 +32,20 @@ if(isset($_POST['setEmail']) && isset($_POST['againEmail'])){
         require_once '../conn.php';
 
         $sql =  'INSERT INTO tokens(user_id,token,email_password,temp_value,expiry_time) VALUES(?,?,?,?,?)';
-        $stmt   = $conn->prepare($sql);
+        $stmt = $conn->prepare($sql);
 
         try{
-            $stmt->execute([$_SESSION['user_id'],$token,'email',$temp_email,$stamp]);
+            $stmt->execute([$_SESSION['user_id'],password_hash($token,PASSWORD_DEFAULT),'email',$temp_email,$stamp]);
+            $token_get_id = $conn->lastInsertId();
             //set session to prevent second token 
             $randToken = rand(1000,9999);
             $_SESSION['email_token'] = $temp_email; $_SESSION['email_token_exp'] = $stamp; $_SESSION['email_token_rand'] = $randToken;
+            $_SESSION['email_token_id'] = $token_get_id;
             $data['email_token'] = $randToken;
 
             $data['result'] = 'generated';
+            //TODO:
+            //send email with $token
 
         }catch(PDOException $e){
             echo $e;

@@ -73,7 +73,7 @@ $sql = "CREATE TABLE IF NOT EXISTS Messages (
     $sql = 'CREATE TABLE IF NOT EXISTS tokens(
       id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
       user_id INT(6) NOT NULL,
-      token INT(6) NOT NULL,
+      token VARCHAR(255) NOT NULL,
       email_password VARCHAR(8),
       temp_value VARCHAR(35),
       verified TINYINT(1) DEFAULT 0,

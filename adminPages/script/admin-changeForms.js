@@ -95,6 +95,8 @@ $(document).ready(function() {
         if (form.getAttribute("data-token") > 1) {
             return "ready";
         } else {
+            window.breakTimer = "";
+
             let b = [];
             const emailValidate = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
             const codeValidate = /\d{5}/;
@@ -121,33 +123,36 @@ $(document).ready(function() {
             if (b.every((bl) => bl)) {
                 if (values[0] === values[1]) {
                     $.ajax({
-                        data: {
-                            setEmail: values[0],
-                            againEmail: values[1],
-                            url: $("#url").val(),
-                        },
-                        method: "post",
-                        url: "../back_process/admin/generate_token.php",
-                    }).done(function(data) {
-                        data = JSON.parse(data);
-                        console.log(data);
-                        if (data.result === "generated") {
-                            console.log(data.temp_email);
-                            console.log(data.stamp);
-                            window.id_to_timer = "emailSet-stamp";
-                            window.time_to_timer = data.stamp;
-                            window.inputs = inputs;
-                            window.form = form;
-                            window.email_token = data.email_token;
-                            $.getScript("../script/timer.js");
-                            $.getScript("../script/Admin_set_email_values.js");
+                            data: {
+                                setEmail: values[0],
+                                againEmail: values[1],
+                                url: $("#url").val(),
+                            },
+                            method: "post",
+                            url: "../back_process/admin/generate_token.php",
+                        })
+                        .done(function(data) {
+                            data = JSON.parse(data);
+                            if (data.result === "generated") {
+                                // console.log(data.temp_email);
+                                //  console.log(data.stamp);
+                                window.id_to_timer = "emailSet-stamp";
+                                window.time_to_timer = data.stamp;
+                                window.inputs = inputs;
+                                window.form = form;
+                                window.email_token = data.email_token;
+                                $.getScript("../script/timer.js");
+                                $.getScript("../script/Admin_set_email_values.js");
 
-                            return "verified";
-                        } else if (data.result === "fail") {
-                            $("#emailSet-error").text(data.error).show();
-                            return "error";
-                        }
-                    });
+                                return "verified";
+                            } else if (data.result === "fail") {
+                                $("#emailSet-error").text(data.error).show();
+                                return "error";
+                            }
+                        })
+                        .fail(function() {
+                            $("emailSet-error").text("connection error").show();
+                        });
                 }
             }
         }
@@ -159,13 +164,13 @@ $(document).ready(function() {
         //console.log(b);
         if (b == "ready" && this.getAttribute("data-token")) {
             if (
-                this.elements["verify-code"].value.length === 4 &&
                 this.elements["repeat-email"].value !== "" &&
-                this.elements["new-email"].value !== ""
+                this.elements["new-email"].value !== "" &&
+                /\d{6}/.test(this.elements["verify-code"].value)
             ) {
-                this.submit();
+                emailAjaxSubmit(this);
             } else {
-                $("#emailSet-error").text("* input verification code code").show();
+                $("#emailSet-error").text("* please input verification code").show();
             }
         }
     });
@@ -179,13 +184,13 @@ $(document).ready(function() {
                 document.forms["change-email-form"].getAttribute("data-token")
             ) {
                 if (
-                    document.forms["change-email-form"].elements["verify-code"].value
-                    .length === 4 &&
                     document.forms["change-email-form"].elements["repeat-email"].value !==
                     "" &&
-                    document.forms["change-email-form"].elements["new-email"].value !== ""
+                    document.forms["change-email-form"].elements["new-email"].value !==
+                    "" &&
+                    /\d{6}/.test(this.elements["verify-code"].value)
                 ) {
-                    document.forms["change-email-form"].submit();
+                    emailAjaxSubmit(document.forms["change-email-form"]);
                 } else {
                     $("#emailSet-error").text("* input verification code").show();
                 }
@@ -193,5 +198,56 @@ $(document).ready(function() {
         }
     });
 
+    function emailAjaxSubmit(form) {
+        let email1 = form.elements["new-email"].value;
+        let email2 = form.elements["repeat-email"].value;
+        let code = form.elements["verify-code"].value;
+        let url = form.elements["url"].value;
+
+        if (email1 === email2) {
+            let email = email1;
+            $.ajax({
+                    method: "post",
+                    url: "../back_process/admin/email-change.php",
+                    data: { "new-email": email, url: url, "verify-code": code },
+                    beforeSend: function() {
+                        form.elements["verify-code"].setAttribute("disabled", "");
+                    },
+                })
+                .done(function(data) {
+                    let obj = JSON.parse(data);
+                    console.log(data);
+                    if (obj.result === "updated") {
+                        $("#emailSet-error").hide();
+                        window.breakTimer = "break";
+                        setTimeout(function() {
+                            $("#emailSet-stamp").text("email updated to " + obj.email + "!");
+                            $("#user-data-content span:nth-child(3)").text(obj.email);
+                        }, 1000);
+                        form.removeAttribute("data-token");
+                        setTimeout(function() {
+                            form.reset();
+                            for (let inp of form.elements) {
+                                if (inp.type === "email") {
+                                    inp.removeAttribute("disabled");
+                                }
+                            }
+                        }, 1000);
+                    } else if (obj.result === "fail") {
+                        $("#emailSet-error").text(obj.error).show();
+                        setTimeout(function() {
+                            form.elements["verify-code"].removeAttribute("disabled");
+                            form.elements["verify-code"].value = "";
+                        }, 700);
+                    }
+                })
+                .fail(function() {
+                    $("#emailSet-error").text("connection error").show();
+                    setTimeout(function() {
+                        form.elements["verify-code"].removeAttribute("disabled");
+                    }, 700);
+                });
+        }
+    }
     //#endregion
 });

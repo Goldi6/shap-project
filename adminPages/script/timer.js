@@ -16,13 +16,16 @@ var x = setInterval(function() {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     document.getElementById(id_to_timer).style.display = "flex";
     // Display the result in the element with id="demo"
-    document.getElementById(id_to_timer).innerHTML =
-        "* Verification code was sent " + minutes + "m " + seconds + "s ";
-    //console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
-    // If the count down is finished, write some text
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById(id_to_timer).innerHTML = "EXPIRED CODE, try again";
-        form.removeAttribute("data-token");
+    if (window.breakTimer !== "break") {
+        document.getElementById(id_to_timer).innerHTML =
+            "* Verification code was sent " + minutes + "m " + seconds + "s ";
+        //console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById(id_to_timer).innerHTML =
+                "EXPIRED CODE, try again";
+            form.removeAttribute("data-token");
+        }
     }
 }, 1000);
