@@ -63,7 +63,7 @@ if(!isset($er)){
                             {
                                 header("Location: ../../Login.php?error=Query error *");
 
-                                die();
+                                
                             }
                         }
                         $_SESSION['user_id'] =$user_id;
