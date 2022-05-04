@@ -76,7 +76,7 @@ $sql = "CREATE TABLE IF NOT EXISTS Messages (
       token INT(6) NOT NULL,
       email_password VARCHAR(8),
       temp_value VARCHAR(35),
-      verified TINYINT(1),
+      verified TINYINT(1) DEFAULT 0,
       expiry_time TIMESTAMP
 
     )';
