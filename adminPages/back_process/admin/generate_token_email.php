@@ -13,8 +13,17 @@ if(isset($_POST['setEmail']) && isset($_POST['againEmail'])){
 
     if($temp_email === $again_email && $_SESSION['user_email']!=$temp_email){
 
-        
+        //check for duplicates
+        require_once '../conn.php';
+        $sql = 'SELECT * FROM users WHERE email=?';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$temp_email]);
+        if($stmt->rowCount()>0){
+            $data['error'] = '* this email is used by someone';
+            $data['result']='fail';        
+        }else{
 
+        
         $data['temp_email'] = $temp_email;
 
         ///////////////
@@ -29,7 +38,6 @@ if(isset($_POST['setEmail']) && isset($_POST['againEmail'])){
         ////////////////////////
         $token = rand(100000 , 999999);
 
-        require_once '../conn.php';
 
         $sql =  'INSERT INTO tokens(user_id,token,email_password,temp_value,expiry_time) VALUES(?,?,?,?,?)';
         $stmt = $conn->prepare($sql);
@@ -52,6 +60,7 @@ if(isset($_POST['setEmail']) && isset($_POST['againEmail'])){
             $data['error'] = '* error generating token';
             $data['result']='fail';
         }
+      }
     }elseif($_SESSION['user_email']===$temp_email){
         $data['result'] = 'fail';
         $data['error'] = '* that\'s already your email';

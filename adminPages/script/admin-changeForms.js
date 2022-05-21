@@ -126,12 +126,13 @@ $(document).ready(function() {
                             data: {
                                 setEmail: values[0],
                                 againEmail: values[1],
-                                url: $("#url").val(),
+                                url: $("input[name=url]").val(),
                             },
                             method: "post",
-                            url: "../back_process/admin/generate_token.php",
+                            url: "../back_process/admin/generate_token_email.php",
                         })
                         .done(function(data) {
+                            console.log(data);
                             data = JSON.parse(data);
                             if (data.result === "generated") {
                                 // console.log(data.temp_email);

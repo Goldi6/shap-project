@@ -1,5 +1,5 @@
 <?php
-
+//??? SEND verification TOKEN to user EMail??
 session_start();
 
 $errors=[];
@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id']) && isset
 
                         $stmt = $conn->prepare($query)->execute([password_hash($passTrue,PASSWORD_DEFAULT, $options), $_SESSION['user_id'], $_SESSION['user_name']]);
                         echo 'success';
+                        $_SESSION['message_success'] = rand(1000,9999);
                         header("Location:" . $url."?success=* password Updated!");
 
                     }catch(PDOException $e){
@@ -59,6 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id']) && isset
             header("Location:" . $url."?changePasswordError=* something is wrong with the query");
 
         }
+    }else{
+       
+        print_r($errors);
+        header("Location:" . $url."?changePasswordError=* you already have this password set");
+
     }
         
 }

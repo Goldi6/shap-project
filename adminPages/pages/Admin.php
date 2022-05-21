@@ -25,8 +25,10 @@
                         <span><?=$_SESSION['user_status']?></span>
                         <span><?=$_SESSION['user_email']?></span>
                     </div>
+                    <p id='email-note'>שים לב! לא תהייה באפשרותך לשחזר סיסמא ללא כתובת אימייל במידה ולא תהייה מחובר
+                        למערכת
                 </div>
-
+                </p>
             </div>
 
             <div id="user-forms" class='admin-cont-parent'>
@@ -81,7 +83,7 @@
                             <label for="old-pass">סיסמא נוכחית</label>
                             <label for="new-pass">סיסמא חדשה</label>
                             <label for="retype-new-pass">אימות סיסמא</label>
-                            <button id='forgot-pass'>שחכתי סיסמא</button>
+                            <a id='forgot-pass'>שחכתי סיסמא</a>
                         </div>
                         <div class="grid-2">
                             <p class="not-allowed">* not allowed: '&#38;', '&#34;', '&#60;', '&#62;', '&#39;', '&#47;',
@@ -163,6 +165,13 @@ $(() => {
 
 ?>
 <script src='../script/admin-changeForms.js'></script>
+<script>
+let emailNote = document.getElementById('email-note');
+let emailStatus = document.getElementById('user-data-content').getElementsByTagName('span')[2].textContent;
+if (emailStatus === '* no email was set') {
+    emailNote.style.display = 'block';
+}
+</script>
 
 <?php
 if($_SESSION['user_status']==1){     

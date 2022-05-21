@@ -42,12 +42,12 @@ if(!isset($er)){
 
                 $user_id = $user['id'];
                 $user_name = $user['username'];
-                $user_email = $user['email'];
+                $user_email = $user['email']=== null? '* no email was set' : $user['email'];
                 $user_status = $user['status'];
 
             
                 
-                    if(password_verify($password , $user['password']) && ($user_status>0 && $user_status<9)){
+                    if(password_verify($password , $user['password']) && ($user_status>0 && $user_status<=9)){
 
                         if (password_needs_rehash($user['password'], PASSWORD_DEFAULT, $options)){
                             $hash = password_hash($password, PASSWORD_DEFAULT, $options);

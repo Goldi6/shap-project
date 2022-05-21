@@ -91,11 +91,13 @@
                     <?=$_GET['connerror']?>
                 </div>
                 <?php } ?>
+                <span class="alert" id='username-alert' style='display:none;'>
 
+                </span>
                 <input type="text" name="username" id="username" placeholder='שם משתמש' autocomplete="username">
                 <input type="password" name='password' id='password' placeholder='סיסמא'
                     autocomplete="current-password">
-                <input type="submit" name='submit' id='submit' value='login'>
+                <input type="submit" name='submit-login' id='submit-login' value='login'>
                 <a href="" id='forgot-login'>שכחתי סיסמא</a>
             </fieldset>
         </form>
@@ -146,13 +148,13 @@ const form = document.getElementById('login-form');
 //console.log(alert);
 
 form.addEventListener('submit', function(e) {
+    e.preventDefault();
     if (/\W/.test(username.value) || username.value.length === 0) {
-        e.preventDefault();
-        // console.log(alert);
         alert.innerHTML = '* Only alphanumeric values and underscore in username';
-        alert.style.display = 'inline-block';
+        alert.style.display = 'block';
     } else {
         alert.style.display = 'none';
+        this.submit();
 
     }
 })
@@ -168,7 +170,7 @@ const loginForm = document.getElementById("login-form");
 const nameResetField = document.getElementById("username-reset");
 const emailResetField = document.getElementById("email-reset");
 
-console.log(resetForm);
+//console.log(resetForm);
 document.getElementById('reset-by-name').addEventListener('click', function(e) {
     e.preventDefault();
 

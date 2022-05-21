@@ -1,13 +1,13 @@
 <?php require 'header.php' ; ?>
 
 
-<h2>צור הודעה חדשה</h2>
+<h2>צור מודעה חדשה</h2>
 <form action="../back_process/messages_page/handle_new_msg.php" method="POST" id="edit-form">
 
     <input type="text" style='display:none' name='url' id='url' value='<?=$_SERVER['REQUEST_URI']?>'>
     <section>
         <?php $error = 'error';require 'error_GET.php'; ?>
-        <p>סמן לאיזה עמודים להעלות את ההודעה:</p>
+        <p>סמן לאיזה עמודים להעלות את המודעה:</p>
         <div class='checkers'>
 
 
@@ -29,22 +29,22 @@
 
             <!-- <span class="radio-btn check-btn-msg">
                 <input type="checkbox" name="general-msg" value="general-msg" checked="checked">
-                <legend for="general-msg">הודעה כללית</legend>
+                <legend for="general-msg">מודעה כללית</legend>
             </span> -->
         </div>
         <!-- <div id="show-all-div">
             <input type="checkbox" name="show-all" value="show-all">
-            <legend for="show-all">הראה הודעה זו בכל העמודים</legend>
+            <legend for="show-all">הראה מודעה זו בכל העמודים</legend>
         </div> -->
         <div>
-            <legend for="expire">* תאריך אחרון להופעת ההודעה:</legend>
+            <legend for="expire">* תאריך אחרון להופעת המודעה:</legend>
             <input type="date" name="expire" id="expire-msg">
         </div>
-        <!-- <button id="load-page-to-editor">ערוך הודעה נוכחית</button> -->
+        <!-- <button id="load-page-to-editor">ערוך מודעה נוכחית</button> -->
 
     </section>
     <textarea name="richText" id="richText"></textarea>
-    <input type="submit" value="צור הודעה">
+    <input type="submit" value="צור מודעה">
 </form>
 <hr>
 <main>
