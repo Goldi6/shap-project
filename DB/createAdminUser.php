@@ -23,7 +23,7 @@ $username = 'admin';
 $password = 'admin';
 try{
     $stmt->execute([$username,'admin@admin.com',1,password_hash($password, PASSWORD_DEFAULT, ['cost' => 12]),1]);
-    echo 'user Created!';
+    echo 'user Created! now you can log in <a href="../adminPages/Login.php">here</a>';
     echo '<br>username: '. $username . "<br>password: " . $password;
 }catch(PDOException $e){
     echo $e;
