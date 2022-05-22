@@ -75,6 +75,7 @@
 
     </nav>
     <div id='login-container'>
+
         <form action="back_process/login/auth.php" method='POST' id='login-form'>
             <input type="text" style='display:none' name='url' value='<?=$_SERVER['REQUEST_URI']?>'>
 
@@ -107,7 +108,11 @@
 
             <p id="legend">שחזור סיסמא</p>
             <fieldset>
-
+                <?php if(isset($_GET['changePasswordError'])) {?>
+                <div class='alert'>
+                    <?=$_GET['changePasswordError']?>
+                </div>
+                <?php } ?>
                 <?php if(isset($_GET['error'])) {?>
                 <div class='alert'>
                     <?=$_GET['error']?>
@@ -201,6 +206,28 @@ document.getElementById("forgot-login").addEventListener("click", (e) => {
     resetForm.style.display = 'block';
     loginForm.style.display = 'none';
 });
+
+
+(function() {
+    let params = (new URL(document.location)).searchParams;
+    if (params.has('changePasswordError')) {
+        resetForm.style.display = 'block';
+        loginForm.style.display = 'none';
+    }
+
+
+
+})();
+</script>
+<script>
+(function() {
+
+    setTimeout(() => {
+        let currentUrl = window.location.href;
+        let clearUrl = currentUrl.split('?');
+        history.pushState(null, document.title, clearUrl[0]);
+    }, 500);
+})();
 </script>
 
 </html>

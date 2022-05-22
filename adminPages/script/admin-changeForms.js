@@ -20,7 +20,13 @@ $(document).ready(function() {
     });
     $("#forgot-pass").click(function(e) {
         e.preventDefault();
-        document.location.href = "../back_process/login/pass-reset.php";
+        let url = document.getElementById("url").value.split("?");
+        url = url[0];
+        //?! path is added to make this cookie global!!
+        document.cookie = "backUrl=" + url + ";path=/";
+        let rand = Math.floor(Math.random() * 1111);
+        document.location.href =
+            "../back_process/login/pass-reset.php?reset-user=" + rand;
     });
 
     //#endregion

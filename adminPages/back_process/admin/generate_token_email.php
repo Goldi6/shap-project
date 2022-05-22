@@ -38,6 +38,7 @@ if(isset($_POST['setEmail']) && isset($_POST['againEmail'])){
         ////////////////////////
         $token = rand(100000 , 999999);
 
+       // $data['token'] = $token;
 
         $sql =  'INSERT INTO tokens(user_id,token,email_password,temp_value,expiry_time) VALUES(?,?,?,?,?)';
         $stmt = $conn->prepare($sql);
